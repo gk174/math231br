@@ -33,13 +33,13 @@ Prove that the cohomology of the row consisting of the $A_i$'s is isomorphic to 
     \end{align*}
     for all $n$, so that the following equality holds for all $n$:
     \begin{align*}
-        h^{n+1}\circ d^n + d^{n+1}\circ h^n = \id
+        h^{n+1}\circ d^n + d^{n-1}\circ h^n = \id
     \end{align*}
     Use this to prove that $C^\bullet$ has no cohomology (it is exact).
 
     \item More generally, suppose we have two chain maps $f^\bullet, g^\bullet \colon C^\bullet \to C^\bullet$ and $h^n$'s satisfying the following relation for all $n$:
     \begin{align*}
-        h^{n+1}\circ d^n + d^{n+1}\circ h^n = f^n - g^n.
+        h^{n+1}\circ d^n + d^{n-1}\circ h^n = f^n - g^n.
     \end{align*}
     Then prove that $f^\bullet$ and $g^\bullet$ induce the same map on cohomology of $C^\bullet$.
 \end{enumerate}
