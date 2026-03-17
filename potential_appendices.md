@@ -44,3 +44,6 @@ Prove Theorem 7.2.2 in Hirzebruch, that $\Omega_k^{\text{SO}}$ is finite for $k\
 
 ## Bott periodicity (Dibs: Shokhruz Kakharov)
 Give a classical proof of Bott periodicity via Morse theory following Milnor's book. Applications to the $J$-homomorphism.
+
+## Stacks on spaces (Dibs: Vincent Costa and Josh Rooney)
+Discuss a "sheaf of categories" (aka stack) on a paracompact space. Promote nonabelian Cech cohomology to a stack, and view the 1-cocycle condition as a gluing condition for groupoids.
