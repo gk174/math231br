@@ -26,7 +26,7 @@ These notes are from a MATH213BR, a second-semester graduate algebraic topology 
 
 \textbf{Part 1}: We begin with the theory of sheaves of sets and discrete groups on topological spaces, developing their cohomology and comparing it with singular and de Rham cohomology. We continue with fiber bundles and develop their basic theory. We then discuss vector bundle theory and Chern and Pontryagin classes. 
 
-\textbf{Part 2}: We discuss oriented and complex cobordism, genera, the $L$-genus and Todd genus, and the index of a $4n$-manifold. We prove Hirzebruch's signature theorem as well as Riemann-Roch for algebraic manifolds.
+\textbf{Part 2}: We discuss oriented and complex cobordism, genera, the $L$-genus and Todd genus, and the index of a $4n$-manifold. We prove Hirzebruch's signature theorem and sketch the proof of Riemann-Roch for algebraic manifolds.
 
 \setcounter{tocdepth}{1}
 \tableofcontents{}
@@ -48,7 +48,7 @@ Thank you to Zo\"{e} Batterman, Vincent Costa, Frank Gubars, Grayson Kemplin, Lu
 
 \section{Sheaves}
 
-The definition of a \emph{sheaf} in Hirzebruch is perhaps a bit different from what we're used to. He wants to think of sheaves as \emph{living over} a space $X$, whereas we might be comfortable thinking about sheaves as local data across a space. We'll see how these perspectives are equivalent.
+The definition of a \emph{sheaf} in Hirzebruch is perhaps a bit different from what we're used to. He wants to think of sheaves as \emph{living over} a space $X$, whereas we might be comfortable thinking about sheaves as local data across a space. We'll see that these perspectives are equivalent.
 
 \begin{definition}\label{def:sheaf} 
 A \emph{sheaf of abelian groups} over a topological space $X$ is a topological space $S$ with the data of a surjective continuous map $\pi \colon S \to X$, for which
@@ -78,7 +78,7 @@ and if we denote by $S \times_X S$ the subspace
 
 We should think about a sheaf of abelian groups as being a space where we can do abelian group operations (addition, subtraction), but where the abelian group in which we're working is \emph{changing} according to the topology of $X$.
 
-\begin{example}[Zero sheaf] The identity map $X \to X$ can be considered a sheaf, where the abelian group structure on each stalk is just the trivial group with one element.
+\begin{example}[Zero sheaf] The identity map $X \to X$ is a sheaf where the abelian group structure on each stalk is just the trivial group with one element.
 \end{example}
 
 
@@ -629,8 +629,8 @@ A big result here that we won't prove is the following:
 
 An abelian category is a setting in which we can do \emph{homological algebra}. In particular, we will be allowed to resolve sheaves by nicer sheaves, or ones which are easier to deal with in some respect.
 
-\begin{remark} For technical reasons, we're going to restrict our attention to sheaf cohomology over paracompact spaces. This is due to the presence of partitions of unity subordinate to open covers (\Cref{thm:paracompact-partition-unity}).
-\end{remark}
+% \begin{remark} For technical reasons, we're going to restrict our attention to sheaf cohomology over paracompact spaces. This is due to the presence of partitions of unity subordinate to open covers (\Cref{thm:paracompact-partition-unity}).
+% \end{remark}
 
 \begin{example}[Representability of sections]
 \label{exa:ZU-sheaf}
@@ -664,10 +664,10 @@ for any presheaf of abelian groups $F$. Finally if $F$ was a sheaf, then any mor
 \begin{align*}
     \Z_U := (\Z[h_U])^\sharp.
 \end{align*}
-It is clear now that we have a natural isomorphism $\Z_U\cong\Gamma(U,-)$ (c.f.~\cite[03CP,03CQ]{Stacks}.
+It is clear now that we have a natural isomorphism $\Z_U\cong\Gamma(U,-)$ (c.f.~\cite[03CP,03CQ]{Stacks}).
 \end{proof}
 
-\begin{remark} We can describe $\Z_U(V)$ explicitly via our understanding of sheafification in \Cref{rmk:interpretation-of-sheafification} --- it is exactly given as the abelian group of locally constant functions $f \colon U \cap V \to \Z$ which extend to a locally constant function on all of $V$, but where the function satisfies $f(v) = 0$ if $v\in V \minus (U\cap V)$. This latter condition is equivalent to the statement that the support of $f$ is closed in $V$, which is often how you'll see $\Z_U(V)$ described:
+\begin{remark} We can describe $\Z_U(V)$ explicitly via our understanding of sheafification in \Cref{rmk:interpretation-of-sheafification} --- it is the abelian group of locally constant functions $f \colon U \cap V \to \Z$ which extend to a locally constant function on all of $V$, but where the function satisfies $f(v) = 0$ if $v\in V \minus (U\cap V)$. This latter condition is equivalent to the statement that the support of $f$ is closed in $V$, which is often how you'll see $\Z_U(V)$ described:
 \begin{align*}
     \Z_U(V) = \left\{ \substack{\text{locally constant functions } U\cap V \to \Z\\ \text{with support closed in }V} \right\}
 \end{align*}
@@ -688,29 +688,29 @@ We'll use this later on.
 
 \subsection{\v{C}ech cohomology of a presheaf}
 
-Let $\mathcal{U} = \left\{ U_i \right\}_{i\in I}$ be a cover of $X$, let $F$ be a presheaf, and define
+
+\begin{definition}\label{def:cech-cochains-differential} Let $\mathcal{U} = \left\{ U_i \right\}_{i\in I}$ be a cover of $X$, and let $F$ be a presheaf of abelian groups.
+\begin{enumerate}
+    \item For every $q\ge0$ we define the \emph{group of $q$-cochains} to be the abelian group:
 \begin{equation}\label{eqn:group-of-Cech-cochains}
 \begin{aligned}
     C^q(\mathcal{U},F) = \prod_{i_0, \ldots, i_q \in I} F(U_{i_0} \cap \cdots \cap U_{i_q}).
 \end{aligned}
 \end{equation}
-We call this the \emph{group of cochains}. We can define a \emph{coboundary map}
+    \item For each $q\ge 0$ we define the \emph{coboundary map} to be the group homomorphism
 \begin{equation}\label{eqn:cech-coboundary-formula}
 \begin{aligned}
     \delta^q \colon C^q(\mathcal{U},F) &\to C^{q+1}(\mathcal{U},F),
 \end{aligned}
 \end{equation}
-defined as
+defined by the formula
 \begin{align*}
     (\delta^q f)(i_0, \ldots, i_{q+1}) = \sum_{k=0}^{q+1} (-1)^k f(i_0, \ldots, \widehat{i_k}, \ldots, i_{q+1}).
 \end{align*}
-\begin{remark}\label{rmk:cech-cohomology-definition-notes} \, 
-\begin{enumerate}
-    \item As a remark, $f(i_0, \ldots, \widehat{i_k}, \ldots, i_{q+1})$ is naturally valued in $U_{i_0}\cap \cdots \cap U_{i_{k-1}} \cap U_{i_{k+1}}\cap \cdots \cap U_{i_{q+1}}$, but we want to think about it as being valued in $\bigcap_{j=0}^{q+1} U_{i_j}$ under the restriction map in order to form the sum above. We've chosen to suppress this restriction from the notation, but Hirzebruch includes it (c.f. \cite[p.~26]{Hirzebruch}.
-    \item\label{abelian-coboundary-condition} The coboundary condition in \Cref{eqn:cech-coboundary-formula} is written additively, since we are assuming $F$ is a sheaf of abelian groups. In later contexts we might write it multiplicatively (if $F$ isn't assumed to be abelian),
 \end{enumerate}
-\end{remark}
+\end{definition}
 
+The element $f(i_0, \ldots, \widehat{i_k}, \ldots, i_{q+1})$ is naturally valued in $F(U_{i_0}\cap \cdots \cap U_{i_{k-1}} \cap U_{i_{k+1}}\cap \cdots \cap U_{i_{q+1}})$, but we want to think about it as being valued in $F(\bigcap_{j=0}^{q+1} U_{i_j})$ under the restriction map in order to form the sum above. We've chosen to suppress this restriction from the notation, but Hirzebruch includes it (c.f. \cite[p.~26]{Hirzebruch}).
 %
 \begin{exercise} Show that $\delta^{q+1}\circ \delta^q = 0$, so that we get a cochain complex
 \begin{equation}\label{eqn:Cech-cochain-complex}
@@ -837,7 +837,7 @@ so we get cohomology in degrees $0$ and $1$, as expected. This is an example of 
 \end{example}
 
 \begin{proposition}\label{prop:Cech-0-is-global-sections} 
-For any space $X$ and any \emph{sheaf} $F\in\Ab(X)$, we have a canonical isomorphism
+For any space $X$ and any sheaf $F\in\Ab(X)$, we have a canonical isomorphism of abelian groups
 \begin{align*}
     \check{H}^0(X,F) \cong \Gamma(X,F).
 \end{align*}
@@ -888,7 +888,7 @@ is a short exact sequence \emph{of presheaves}, it induces a long exact sequence
 \begin{align*}
     \check{C}^q(\mathcal{U},-) \colon \Fun(\Open(X)^\op,\Ab) \to \Ab
 \end{align*}
-is exact (subtlety: its restriction to $\Ab(X)$ is not necessarily exact, because $\Ab(X)$ has a different notion of exactness than the presheaf category!). A diagram chase then implies we get a long exact sequence on $\check{H}^\ast(\mathcal{U},-)$. Then we take a colimit over all $\mathcal{U}$ in the filtered category of covers $\Cov(X)$, and use that filtered colimits preserve exactness to conclude (\Cref{exa:CovX-filtered} and \Cref{cor:filtered-colimits-preserve-exactness}). The details are spelled out in \cite[pp.~28--29]{Hirzebruch}.
+is exact. A diagram chase then implies we get a long exact sequence on $\check{H}^\ast(\mathcal{U},-)$. Then we take a colimit over all $\mathcal{U}$ in the filtered category of covers $\Cov(X)$, and use that filtered colimits preserve exactness to conclude (\Cref{exa:CovX-filtered} and \Cref{cor:filtered-colimits-preserve-exactness}). The details are spelled out in \cite[pp.~28--29]{Hirzebruch}.
 \end{proof}
 
 This begs a very interesting question --- when do the \v{C}ech cohomology of a presheaf $F$ and of its sheafification $F^\sharp$ agree? We need two preliminary results to lead up to a partial answer to this question.
@@ -954,7 +954,7 @@ In classical topology, spaces were called \emph{acyclic} if every cycle on the s
 \begin{definition}\label{def:acyclic-sheaf} A sheaf $F\in \Ab(X)$ is \emph{acyclic} if $\check{H}^p(X,F) = 0$ for $p>0$.
 \end{definition}
 
-\begin{definition} Take $F\in \Ab(X)$. An \emph{acyclic resolution} of $F$ is a (possibly infinite) exact sequence
+\begin{definition} Take $F\in \Ab(X)$. An \emph{acyclic resolution} of $F$ is a (possibly infinite) exact sequence of sheaves
 \begin{align*}
     0 \to F \to A^0 \to A^1 \to \cdots
 \end{align*}
@@ -3130,22 +3130,19 @@ We have that the rational oriented cobordism ring is polynomial on the even comp
 \begin{proof} For a sketch, see \cite[Lecture~12]{Freed-bordism} or \cite[\S16]{MilnorStasheff}.
 \end{proof}
 
-
 \begin{theorem}[{\cite[2.24]{Freed-bordism}}] All torsion in $\Omega^{\SO}_\ast$ is 2-torsion, and is finite in each degree.
 \end{theorem}
 
-
-
-\begin{theorem}[{\cite[7.2.2]{Hirzebruch}, Thom}] If $i\not\equiv 0\pmod{4}$, then $\Omega_i$ is finite. We have that $\Omega^{4k}$ has free part $\Z^{\pi(k)}$ and a finite torsion part.
+\begin{theorem}[{\cite[7.2.2]{Hirzebruch}, Thom}] If $i\not\equiv 0\pmod{4}$, then $\Omega^\SO_i$ is finite. We have that $\Omega^{4k}$ has free part $\Z^{\pi(k)}$ and a finite torsion part.
 \end{theorem}
 
-\begin{example} $\Omega_0\cong \Z$, as a compact oriented $0$-manifold is a finite set of signed points and the sum of the signs is a bordism invariant.
+\begin{example} $\Omega^\SO_0\cong \Z$, as a compact oriented $0$-manifold is a finite set of signed points and the sum of the signs is a bordism invariant.
 \end{example}
 
-\begin{example} $\Omega^1\cong 0$, since every compact $1$-manifold is a disjoint union of circles, and all such manifolds bound. 
+\begin{example} $\Omega^\SO_1\cong 0$, since every compact $1$-manifold is a disjoint union of circles, and all such manifolds bound. 
 \end{example}
 
-\begin{example} $\Omega_2\cong 0$, as every compact oriented $2$-manifold bounds. Can you find an example of one that doesn't bound if we dropped the word oriented?
+\begin{example} $\Omega^\SO_2\cong 0$, as every compact oriented $2$-manifold bounds. Can you find an example of one that doesn't bound if we dropped the word oriented?
 \end{example}
 
 \begin{example} $\Omega_3\cong 0$, this is a non-trivial result of Rokhlin.
@@ -3160,7 +3157,6 @@ We have that the rational oriented cobordism ring is polynomial on the even comp
 \begin{remark} The odd degree generators were constructed by Dold. For any two integers $m,n\ge1$, consider the $C_2$-action on $S^m \times \CP^n$ given by the antipodal map on the left and the complex conjugation action on the right. Quotienting by this action we get a manifold we call $P(m,n)$ \cite{doldErzeugendeThomschenAlgebra1956}. This gives a fiber bundle over $\RP^m$ with fiber $\CP^n$ and structure group $C_2$. For suitable $m,n$, these can give generators of $\Omega^\SO_\ast$ in odd degrees (see \cite[Satz~3]{doldErzeugendeThomschenAlgebra1956}).
 \end{remark}
 
-
 \begin{example} $\Omega_6\cong 0$
 \end{example}
 
@@ -3170,6 +3166,418 @@ $\Omega_7\cong 0$.
 
 \begin{example} $\Omega_8 \cong \Z \oplus \Z$, generated by $\CP^4$ and $\CP^2 \times \CP^2$
 \end{example}
+
+\subsection{Pontryagin numbers}
+
+\begin{proposition}[{\cite[14.2]{MilnorStasheff}}]
+\label{prop:pontryagin-classes-are-stable}
+Let $E \to X$ be any real vector bundle. Then we have that
+\begin{align*}
+     p(E \oplus \epsilon_\R^r) = p(E)
+\end{align*}
+where $\epsilon_\R^r$ is a trivial rank $r$ real vector bundle.
+\end{proposition}
+\begin{proof} Complexification commutes with Whitney sums, so by multiplicativity of total Chern classes we get
+\begin{align*}
+    c(E \otimes_\R \C \oplus \epsilon_\C^r) = c(E \otimes_\R)c(\epsilon_\C^r) = c(E \otimes_\R \C),
+\end{align*}
+so the total Pontryagin classes agree.
+\end{proof}
+
+If $M$ is some smooth compact oriented manifold, we can look at the Pontryagin classes of its tangent bundle, and we get classes $p_i(TM) \in H^{4i}(M,\Z)$. Since $M$ is oriented, the top-dimensional cohomology integrates to $\Z$, hence if $M$ has dimension $4n$, then $p_n(TM)$ can be considered as an actual integer.
+
+\begin{example} Consider $\CP^4$, which is real 8-dimensional. There are two natural ways to extract integers out of its Pontryagin classes, namely
+\begin{align*}
+    p_2(T\CP^4) = 10\in \Z \cong H^8(\CP^4,\Z) \\
+    p_1(T\CP^4)p_1(T\CP^4) = 25 \in \Z \cong H^8(\CP^4,\Z).
+\end{align*}
+Conversely, we could consider some other real compact oriented 8-manifold, like $M = \RP^3 \times \RP^5$, and we could run the analogous computation and we'd get zero. So in some cases these Pontryagin numbers can tell the difference between two compact oriented $4n$-manifolds.
+\end{example}
+
+\begin{definition}\label{def:Pontryagin-numbers} Let $M^{4n}$ be a compact oriented $4n$-manifold, and let $I = (i_1, \ldots, i_r) \vdash n$ be a partition of $n$. We define the $I$th \emph{Pontryagin number} of $M$ to be the integer
+\begin{align*}
+    p_I(M) = \int_M p_{i_1}(TM) \cdots p_{i_r}(TM) \in \Z.
+\end{align*}
+If $\dim M \not\equiv 0 \pmod{4}$, we just define all the Pontryagin numbers to be zero.
+\end{definition}
+
+Here's a fun proposition:
+
+\begin{proposition}[{\cite[pp.~184-185]{MilnorStasheff}}]
+Let $M^{4n}$ be a compact oriented manifold. If any Pontryagin number $p_I(M)$ is nonzero, then $M$ has no orientation-reversing diffeomorphisms.
+\end{proposition}
+\begin{proof} If we reverse the orientation on $M$, all the Pontryagin classes are unchanged, but the fundamental class on $M$ picks up a minus sign. So if $M$ admits an orientation-reversing diffeomorphism, then $p_I(M) = - p_I(M)$, so all Pontryagin classes are zero.
+\end{proof}
+
+We have a key property of Pontryagin classes coming from when a manifold is a boundary. 
+
+\begin{lemma}\label{lem:pontryagin-numbers-of-boundary-are-zero} 
+Let $W$ be an oriented $(d+1)$-dimensional manifold with boundary, and let $M = \del W$ be its $d$-dimensional compact oriented boundary. Then $p_I(M) = 0$ for all $I$.
+\end{lemma}
+\begin{proof} If $d \not\equiv 0\pmod{4}$, then all Pontryagin numbers are zero by definition and we're done, so let's assume $d = 4n$. Letting $j \colon M \hookto W$ be the inclusion of the boundary, we get a splitting of the restricted tangent bundle
+\begin{align*}
+    j^\ast TW \cong TM \oplus \epsilon_\R^1,
+\end{align*}
+where $\epsilon_\R^1$ is a trivial real line bundle. This comes from picking a Euclidean metric on $TW$, wherein we see a unique outward-pointing normal vector for the tangent bundle on $M$ (pointing from the boundary \emph{into} $W$), c.f.~\cite[4.9]{MilnorStasheff}.
+
+By stability (\Cref{prop:pontryagin-classes-are-stable}) and naturality of Pontraygin classes, we now see that
+\begin{align*}
+    p(TM) = p(TM \oplus \epsilon_\R^1) = p(j^\ast TW) = j^\ast p(TW),
+\end{align*}
+so the Pontryagin classes of the tangent bundle on $M$ are pulled back from the Pontraygin classes of the tangent bundle on $W$.
+
+Finally, we see that
+\begin{align*}
+    \int_M p_I(TM) = \int_{[M]} j^\ast p_I(TW).
+\end{align*}
+Let $\alpha \in H_{\dR}^{4k}(W,\Z)$ be a closed $4n$-form representing the cohomology class $p_I(TW)$. Then in the above we have that
+\begin{align*}
+    \int_M j^\ast \alpha = \int_{\del W} \alpha = \int_W d\alpha = 0
+\end{align*}
+by Stokes' theorem. Therefore $p_I(M) = \int_M p_I(TM)$ is zero for all $I$.
+\end{proof}
+
+This has fun applications, for instance:
+
+\begin{example} We have that $p_n(\CP^{2n}) = \binom{2n+1}{n}$, hence $\CP^{2n}$ is not a boundary of a smooth oriented $(4n+1)$-manifold.
+\end{example}
+
+\begin{example} All the Pontryagin numbers of $S^{4n}$ are zero.
+\end{example}
+
+
+\section{Genera}
+
+\begin{lemma}\label{lem:pI-additive-out-of-omegason} 
+If $M$ and $N$ are compact oriented manifolds such that $[M]=[N]$ in $\Omega^\SO_{4n}$, then all the Pontryagin numbers of $M$ and $N$ agree.
+\end{lemma}
+\begin{proof} By \Cref{lem:pontryagin-numbers-of-boundary-are-zero}, if $M$ is null-cobordant, then its Pontryagin numbers vanish. As mentioned before, we have that $p_I(M) = - p_I(-M)$, where $-M$ means $M$ with its orientation reversed. We have that $[M] = [N]$ if and only if $[M] - [N]$ is null-cobordant, meaning if $M \amalg -N$ bounds. If it does, then all the Pontryagin numbers of $M$ and $-N$ are zero, but the Pontryagin numbers of a disjoint union of manifolds are just a sum of the Pontryagin numbers of the individual manifolds. Similarly, reversing the orientation on a manifold flips the sign on its fundamental class, hence induces a factor of $(-1)$ to the Pontryagin numbers. All of this says that if $[M] = [N]$ then
+\begin{align*}
+    0 = p_I(M \amalg -N) = p_I(M) - p_I(N).
+\end{align*}
+\end{proof}
+
+Another way to state what we just proved is the following: if $I$ is a partition of $n$, then
+\begin{align*}
+    p_I \colon \Omega^\SO_{4n} \to \Z
+\end{align*}
+is an abelian group homomorphism.
+
+Suppose we picked a partition $I_n$ of $n$ for every $n$. Then we would get a map
+\begin{equation}\label{eqn:genus-from-partitions}
+\begin{aligned}
+    \bigoplus_{n\ge0} p_{I_n} \colon \Omega^\SO_\ast \to \Z,
+\end{aligned}
+\end{equation}
+which would be an abelian group homomorphism. A very natural question to ask is the following:
+
+\begin{question} Can we pick partitions $I_n$ for which the additive homomorphism in \Cref{eqn:genus-from-partitions} is multiplicative (i.e. a ring homomorphism)?
+\end{question}
+
+Suppose we could, then let $F = \oplus_{n\ge0} p_{I_n}$. For $n=1$, we only have one partition, so on $4$-manifolds, $F$ just inputs a $4$-manifold and outputs its first Pontryagin class. For $n=2$, there are two possibilities, namely $p_2$ and $p_{1,1}$.
+
+Let's see what $F(\CP^2 \times \CP^2)$ could be. If it were multiplicative, it would be equal to $F(\CP^2) \cdot F(\CP^2)$. Since $p_1(\CP^2) = 3$, we have that $F(\CP^2 \times \CP^2) = 9$. We can check that
+\begin{align*}
+    p_{2}(\CP^2 \times \CP^2) &= 9 \\
+    p_{1,1} (\CP^2 \times \CP^2) = 18,
+\end{align*}
+so we have to have that $F$ sends $8$-manifolds to $p_2$. Similarly we can compute
+\begin{align*}
+    p_3(\CP^2 \times \CP^2 \times \CP^2) &= 27 \\
+    p_{2,1}(\CP^2 \times \CP^2 \times \CP^2) &= 81 \\
+    p_{1,1,1}(\CP^2 \times \CP^2 \times\CP^2) &= 162.
+\end{align*}
+So we would want $F$ to send 12-manifolds to $p_3$. Pattern-matching, we might ask $F$ to send a $4n$-manifold to $p_n$. It's not at all obvious that this is multiplicative, but it will turn out to be, and we can prove it soon. However just by looking at where $(\CP^2)^{\times n}$ needs to go, we can check that the only way to make this work is sending $4n$-manifolds to $p_n$. We get an answer to the question above then, and the answer is yes but there is only one way to do it and it's kind of trivial.
+
+If we picked $F$ to send 4-manifolds to $p_1$, another way to get the correct formula for $\CP^2 \times \CP^2$ to have multiplicativity is to define $F$ to send an 8-manifold to $p_1^2 - p_2$. So if we pick a linear combination of Pontryagin numbers (or, the integration of a \emph{polynomial} in the Pontryagin classes), we could try to ask for multiplicativity that way. So we could ask a modified question:
+
+\begin{question} For some ring $R$, can we cook up a ring homomorphism
+\begin{align*}
+    \Omega_\ast^\SO \to R
+\end{align*}
+where, on each $n$, the map is an $R$-linear combination of the Pontryagin numbers for $4n$-manifolds?
+\end{question}
+
+Let's make this more precise. For each $n$, we only need the Pontryagin numbers $p_1, \ldots, p_n$ to define the value on $\Omega^\SO_n$. Denote by $K_n$ our $n$th polynomial in the Pontryagin classes, that is,
+\begin{align*}
+    K_n(p_1, \ldots, p_n) \colon \Omega^{\SO}_n \to R.
+\end{align*}
+We need these to satisfy two key properties:
+\begin{enumerate}
+    \item $K_n$ is homogeneous of degree $n$ if we think of each $p_i$ as being of degree $i$
+    \item the $K_n$'s are \emph{multiplicative}, that is, if $M^{4m}$ and $N^{4n}$ are two compact oriented manifolds, we want
+\begin{align*}
+    K_{m+n}(p_1(M \times N), \ldots, p_n(M \times N)) = \sum_{j=0}^{m+n} K_j(p_1(M), \ldots, p_j(M)) \cdot K_{m+n-j}(p_1(N), \ldots, p_{m+n-j}(N)).
+\end{align*}
+\end{enumerate}
+
+We can make the following definition:
+
+\begin{definition}\label{def:m-sequence} Let $R$ be a commutative ring, and consider the ring $R[p_1,p_2,\ldots]$ in infinitely many variables $p_i$, with $p_i$ of weight $4i$. We define an \emph{$m$-sequence} (multiplicative sequence) to be a sequence of elements $K_r \in R[p_1,p_2,\ldots ]$ for $r\ge 0$ satisfying the following properties:
+\begin{enumerate}
+    \item $K_0 = 1$
+    \item $K_r$ lies in the subring $R[p_1, \ldots, p_r]$
+    \item for any indeterminates $a_i,b_i,c_i$, if
+    \begin{align*}
+        \left( 1 + a_1 z + a_2 z^2 + \ldots  \right)\left( 1 + b_1 z + b_2z^2 + \ldots  \right) = 1 + c_1 z + c_2 z^2 + \ldots,
+    \end{align*}
+    then
+    \begin{align*}
+        \left( 1 + K_1(a_1)z + K_2(a_1,a_2)z^2 + \ldots \right)\left( 1 + K_1(b_1)z + K_2(b_1,b_2)z^2 + \ldots \right) = 1 + K_1(c_1)z + K_2(c_1,c_2)z^2 + \ldots
+    \end{align*}
+\end{enumerate}
+\end{definition}
+The point of the definition is the following observation:
+
+\begin{proposition} If an abelian group homomorphism
+\begin{align*}
+    \Omega^\SO_\ast \to R
+\end{align*}
+is given by a polynomial $K_r(p_1, \ldots, p_r)$ on $\Omega^{\SO}_r$, then the homomorphism is multiplicative if and only if the $K_r$'s are $m$-sequences.
+\end{proposition}
+\begin{proof} Use the latter property, together with $a_i = p_i(M)$, $b_i = p_i(N)$, and $c_i = p_i(M \times N)$.
+\end{proof}
+
+
+So we now have a way to answer this question about forming multiplicative maps out of $\Omega^\SO_\ast$ out of Pontryagin classes --- we just need to figure out which $m$-sequences exist. It will be very helpful to be able to divide by integers in order to make this all work nicely, so we want the target ring to have this property (i.e. we want it to be an algebra over $\Q$). A commutative ring homomorphism from any ring $A$ to a $\Q$-algebra $B$ is the same, by adjunction, as a $\Q$-algebra map $A \otimes \Q \to B$, which is the same as a ring homomorphism between them. So we can make the following definition:
+
+\begin{definition}\label{def:genus} Given an integral domain $R\in \CAlg_\Q$, we define a \emph{genus} to be a unital ring homomorphism
+\begin{align*}
+    \phi \colon \Omega^{\SO}_\ast \to R.
+\end{align*}
+(Note this is the same data as a ring homomorphism $\Omega^\SO_\ast \otimes \Q \to R$).
+\end{definition}
+
+We now know, roughly, that we can build a genus out of an $m$-sequence, and we will see shortly that the entire data of an $m$-sequence can be compressed into the data of a single power series over $R$. Magically, \emph{every} genus comes from an $m$-sequence in the Pontryagin classes!
+
+
+\begin{theorem}\label{thm:genera-char-series-bijection} 
+For any $R$ as in \Cref{def:genus}, there are bijections
+\begin{equation}\label{eqn:genera-even-power-series-bijection}
+\begin{aligned}
+    \left\{ \text{genera valued in }R \right\} \leftrightarrow \left\{ m\text{-sequences in }R \right\} \leftrightarrow 1+R[[x^2]]
+\end{aligned}
+\end{equation}
+between genera in $R$ and even power series over $R$ beginning with $1$.
+\end{theorem}
+
+We'll prove this over the course of a few steps. 
+
+\begin{lemma} There is a bijection between $m$-sequences and even power series with constant term $1$.
+\end{lemma}
+\begin{proof} If $Q(x) \in 1 + R[[x^2]]$ is an even power series with constant term 1, we can take some indeterminates $c_i$ all of weight 2, and we can define the power series
+\begin{align*}
+    Q(x_1) \cdots Q(x_n) \in R[[x_1, \ldots, x_n]]^{\Sigma_n}.
+\end{align*}
+This is symmetric in the $x_i$'s so we use the isomorphism
+\begin{align*}
+    R[[x_1, \ldots, x_n]]^{\Sigma_n} \cong R[[p_1,p_2, \ldots]]
+\end{align*}
+where the $p_i$'s are the elementary symmetric polynomials in the $x_i^2$'s. We can therefore write
+\begin{align*}
+    Q(x_1) \cdots Q(x_n) &= 1 + K_1(p_1) + K_2(p_1,p_2) + \ldots + K_n(p_1, \ldots, p_n) + K_{n+1}(p_1, \ldots, p_n,0),
+\end{align*}
+where in the above expression, $p_i$ has weight $4i$, as does $K_i$. We claim the $K_r$'s don't depend on $n$ so long as $n\ge r$ (this is a fundamental result in symmetric function theory, see for instance \cite[I.2]{macdonaldSymmetricFunctionsHall1995}). We call $\left\{ K_r \right\}$ the \emph{multiplicative sequence} or $m$\emph{-sequence} associated to the genus. We observe that $Q(x)$ can be recovered uniquely from the $K_r$'s by
+\begin{equation}\label{eqn:Qx-from-Krs}
+\begin{aligned}
+    Q(x) := 1 + K_1(1)x^2 + \sum_{i\ge 2} K_i(1,0, \ldots, 0) x^{2i}.
+\end{aligned}
+\end{equation}
+(in Hirzebruch this latter sum is written $K(1+x)$). This establishes the bijection between even power series and $m$-sequences.
+\end{proof}
+
+We can now construct a genus from an even power series:
+
+\begin{construction} Let $R \in \CAlg_\Q$ be an integral domain. Given an even power series $Q \in 1 + R[[x^2]]$, we define
+\begin{align*}
+    \phi_Q \colon \Omega^\SO_\ast \to R
+\end{align*}
+by the formula
+\begin{align*}
+    \phi_Q([M]) = \int_M  K_n(p_1, \ldots, p_n),
+\end{align*}
+where $K_n$ is the $m$-sequence attached to $Q$ in the bijection above.
+\end{construction}
+
+
+\begin{proposition}\label{prop:phiQ-well-defined} The assignment
+\begin{equation}\label{eqn:Q-to-phiQ}
+\begin{aligned}
+    1+R[[x^2]] &\to\left\{ \text{genera valued in }R \right\}  \\
+    Q &\mapsto \phi_Q
+\end{aligned}
+\end{equation}
+is well-defined \cite[p.~14]{MMF}.
+\end{proposition}
+\begin{proof} We must check the resulting $\phi_Q$ is indeed a bordism invariant, but this follows directly from \Cref{lem:pI-additive-out-of-omegason}, since Pontryagin numbers of cobordant manifolds are equal. Therefore $\phi_Q$ is well-defined as a function.
+
+Additivity comes from additivity of fundamental classes in disjoint unions, from which it is clear that $\phi_Q$ as defined is an abelian group homomorphism. Finally we check it is a unital ring homomorphism, i.e. that it is multiplicative, but this is an immediate consequence of multiplicativity of the $K_n$'s.
+\end{proof}
+
+We now define a power series out of a genus.
+
+\begin{construction}\label{constr:power-series-from-genus}
+Given a genus $\phi$, we define a formal power series over $R$ by
+\begin{align*}
+    g'(y) &= \sum_{n=0}^\infty \phi([\CP^n]) y^n = \sum_{n=0}^\infty \phi([\CP^{2n}]) y^{2n}.
+\end{align*}
+Integrating (with constant of integration equal to zero), we get a power series $g(y)$, and we let $f(x) = g^{-1}(x)$ denote its compositional inverse.\footnote{Such an inverse exists since $g(y)$ is of the form $y + a_2 y^2 + a_3 y^3 +\ldots $.} We then define
+\begin{align*}
+    Q(x) := \frac{x}{f(x)}.
+\end{align*}
+\end{construction}
+
+\begin{proposition} The $Q$ constructed out of $\phi$ above is well-defined, that is, it is even and starts with constant term $1$.
+\end{proposition}
+\begin{proof} To see it is even we have to check that $f$ is odd, which is equivalent to $g$ being odd, which is equivalent to $g'$ being even, which it indeed is. To check that the constant term of $Q$ is $1$, we have to check that $f(x) = x + O(x^2) $. It is true that $f(x) = ux + O(x^2)$ since $f$ admits a compositional inverse, and we know that $g(y) = y + O(y^2)$, hence $u=1$.
+\end{proof}
+
+\begin{proposition} The construction of $\phi$ from $Q$ is injective.
+\end{proposition}
+\begin{proof} Since a genus is unital mapping out of a $\Q$-algebra, it is determined on what it does on generators of the $\Q$-algebra. In particular by \Cref{thm:Q-algebra-generators-rational-omega-SO}, it is determined by where it sends $[\CP^n]$ for each $n$. However in the construction above, it is clear that if $\phi$ and $\phi'$ agree on each $[\CP^n]$ then their resulting normalized even power series will be the same.
+\end{proof}
+
+The last thing in order to prove \Cref{thm:genera-char-series-bijection} is the following:
+
+\begin{proposition} The composite
+\begin{align*}
+    \left\{ R\text{-genera} \right\} \to 1 + R[[x^2]] \to \left\{ R\text{-genera} \right\}
+\end{align*}
+is the identity.
+\end{proposition}
+\begin{proof} Begin with $\phi$, let $Q$ be the associated power series, and let $\phi_Q$ be the resulting genus. We need to check $\phi = \phi_Q$, and as above it suffices to check they agree on complex projective spaces (of even complex dimension $2n$). Let $n\ge1$ and fix $x\in H^2(\CP^{2n};\Z)$ to be the hyperplane class. Then we have that the total Pontryagin class of complex projective space is
+\begin{align*}
+    p(\CP^{2n}) = (1+x^2)^{2n+1}.
+\end{align*}
+We have that $\phi([\CP^{2n}])$ is $\int_{\CP^{2n}} K_{4n}(p_1, \ldots, p_n)$. By multiplicativity of the $m$-series $K_\ast$, we get that
+\begin{align*}
+    K_{4n}(p_1, \ldots, p_n)([\CP^{2n}]) = K_1(x^2)^{2n+1},
+\end{align*}
+where we recall $x^2 = p_1(\CP^{2n})$. As $Q(x) = K_1(p_1)$ by definition, we get the following important observation: $\phi([\CP^{2n}])$ is the coefficient of $z^{2n}$ in $Q(z)^{2n+1}$, where $Q$ is built from $\phi$.
+
+We want to check that this agrees with $\phi_Q([\CP^{2n}])$, that is, that this is the coefficient on $y^{2n}$ in $g'(y)$. As above let $f = g^{-1}$ so that $Q(x) = x/f(x)$.
+
+By the Cauchy residue theorem,\footnote{Or we might call this the formal residue theorem or something, since we are not in $\C$ but in any characteristic zero ring.} we have that
+\begin{align*}
+    \phi([\CP^{2n}]) &= \res_0(\frac{Q(x)^{2n+1}}{x^{2n+1}})dx = \res_0 \left( \frac{1}{f(x)^{2n+1}} \right)dx.
+\end{align*}
+If we let $y=f(x)$ and $g(y)=x$, then $dx = g'(y)dy$, so we get that
+\begin{align*}
+    \res_0 \left( \frac{1}{f(x)^{2n+1}} \right)dx = \res_0 \left( \frac{1}{y^{2n+1}} \right)g'(y)dy,
+\end{align*}
+which is the coefficient on $y^{2n}$ in $g'(y)$, i.e. $\phi_Q([\CP^{2n}])$.\footnote{There's a tiny subtlety here when we change coordinates from $x$ to $y$, in that we have to check that if we were integrating a small circle around the origin in the $y$-plane, after applying $f$ it didn't become a more complicated path, e.g. a path that wraps \emph{twice} around the origin in the $x$-plane. We don't encounter this issue when we do $u$-subs in single variable calculus, but it becomes something we have to stress about when doing contour integrals. In our particular case this is a non-issue since $f(x) = x + O(x^2)$ has winding number $1$.}
+\end{proof}
+
+\begin{terminology} In \Cref{thm:genera-char-series-bijection}, we call $Q(x)$ the \emph{characteristic series} associated to a genus.
+\end{terminology}
+
+\begin{example} We had this basic $m$-sequence, where the $n$th term $K_n(p_1, \ldots, p_n) = p_n$ was just the $n$th Pontryagin class. Earlier we had mentioned this might give an easy example of a genus. Observing that $K_n(1,0, \ldots, 0) = 0$ for all $n>1$, by \Cref{eqn:Qx-from-Krs} the even power series associated to this $m$-series is very simple, it is $Q(x) = 1 + x^2$. We now want to solve for the associated genus. We have that
+\begin{align*}
+    Q(x) = 1 + x^2 = \frac{x}{f(x)},
+\end{align*}
+and so $f(x) = \frac{x}{1+x^2}$.\footnote{Since $\frac{1}{1+x^2} = \sum_{j=0}^\infty (-1)^j x^{2j}$, we get that $f(x) = \sum_{j=0}^\infty (-1)^j x^{2j+1}$.} We ultimately want the compositional inverse $g$ for this, so if we set
+\begin{align*}
+    y = \frac{x}{1+x^2},
+\end{align*}
+then $(1+x^2)y = x$, i.e. $yx^2 - x + y = 0$. By the quadratic formula, we solve for $x$ as
+\begin{align*}
+    x = \frac{1 \pm \sqrt{1 - 4y^2}}{2y}
+\end{align*}
+This gives two solutions in the Laurent ring, but we want the one which is actually a power series. Using the Taylor series for $\sqrt{1-t}$ we can compute that $\sqrt{1 - 4y^2} = 1 - 2y^2 -2y^4 + \ldots$, from which we see
+\begin{align*}
+    \frac{1 + \sqrt{1-4y^2}}{2y} &= \frac{1}{y} - y - y^3 - \cdots \\
+    \frac{1 - \sqrt{1-4y^2}}{2y} &= y + y^3 + 2y^5 + \ldots
+\end{align*}
+so the latter one is the one to pick. This tells us that
+\begin{align*}
+    g(y) = \frac{1 - \sqrt{1-4y^2}}{2y},
+\end{align*}
+and the derivative of this will give us the values of our genus on even-dimensional complex projective spaces.
+
+It doesn't look fun to derive $g(y)$, so instead let's recall something from combinatorics, namely if $C_n$ denotes the $n$th Catalan number, then the generating series $c(y) = \sum_{n\ge0} C_n y^n$ is given by
+\begin{align*}
+    c(y) = \frac{1 - \sqrt{4y}}{2y}.
+\end{align*}
+So we have that
+\begin{align*}
+    g(y) = y c(y^2) = \sum_{n\ge0} C_n y^{2n+1}.
+\end{align*}
+Deriving, we get that
+\begin{align*}
+    g'(y) = \sum_{n\ge0} (2n+1) C_n y^{2n},
+\end{align*}
+so the genus $\phi$ determined by our $m$-series must satisfy
+\begin{align*}
+    \phi([\CP^{2n}]) = (2n+1)C_n.
+\end{align*}
+The Catalan numbers are, of course, given by $C_n = \frac{1}{2n+1} \binom{2n+1}{n}$, so we recover that
+\begin{align*}
+    \phi([\CP^{2n}]) = \binom{2n+1}{n} = \int_{\CP^{2n}}p_n(T\CP^{2n})
+\end{align*}
+as expected!
+\end{example}
+
+\subsection{The $L$-genus}
+
+Above we saw a very basic example of a genus, namely the one determined by $Q(x) = 1+x^2$, which has a simple $m$-sequence and a simple characteristic series. We could go in the reverse direction, namely we could try to build a genus where the values of $\phi([\CP^{2n}])$ are simple and easy to compute. When we do this we are led to the following definition, which is a fundamental object in index theory:
+
+\begin{definition}\label{def:L-genus} We define the \emph{$L$-genus}
+\begin{align*}
+    \phi_L \colon \Omega^{\SO}_\ast \otimes \Q &\to \Q
+\end{align*}
+to be the $\Q$-valued genus defined by the even characteristic series
+\begin{align*}
+    Q(x) = \frac{x}{\tanh(x)}.
+\end{align*}
+This is also equal to
+\begin{align*}
+    Q(x) =1 + \sum_{k=1}^\infty (-1)^{k-1} \frac{2^{2k}}{(2k)!}B_k x^{2k},
+\end{align*}
+where the $B_k$ are the \emph{Bernoulli numbers}.
+\end{definition}
+
+The following result tells us, roughly, that this is the simplest possible genus we could construct.
+
+\begin{proposition}\label{prop:L-genus-CP2n-to-1} 
+The $L$-genus $\phi_L$ is uniquely determined by the property that $\phi_L([\CP^{2n}]) = 1$ for all $n$.
+\end{proposition}
+\begin{proof} Uniqueness is immediate from the proof of \Cref{thm:genera-char-series-bijection}; all genera are uniquely determined by where they send complex projective spaces of even dimension. So now fix some $n$. We get that $Q(x) = x/\tanh(x)$, so $f(x) = \tanh(x)$. As $f^{-1}(y) = g(y)$ with $y=f(x)$, we have by the inverse function theorem that
+\begin{align*}
+    g'(y) = (f^{-1})'(y) = \frac{1}{f'(f^{-1}(y))} = \frac{1}{1-\tanh(x)^2} = \frac{1}{1-y^2}.
+\end{align*}
+Therefore
+\begin{align*}
+    g'(y) &= 1 + y^2 + y^4 + \ldots  = \sum_{n\ge0} \phi_L([\CP^{2n}]) y^{2n}.
+\end{align*}
+\end{proof}
+\begin{proof}[Alternate proof] We can just directly compute $\phi_L([\CP^{2n}])$ by applying the Cauchy residue theorem to $\phi_L$. This is how the proof goes in \cite[1.5.1]{Hirzebruch}.
+\end{proof}
+
+\begin{remark} This gives us an indication as to how we might have discovered the $L$-genus. If we wanted to cook up a genus taking values $1$ on each complex projective space, we can start with $g'(y)$ as above, and integrate to get
+\begin{align*}
+    g(y) = y + \frac{y^3}{3} + \frac{y^5}{5} + \ldots 
+\end{align*}
+If we were exceptionally skilled at calculus, we might recognize this as the Taylor series for $\text{arctanh}(y)$, the inverse of hyperbolic tangent.
+\end{remark}
+
+\textbf{Fun fact}: Arc trigonometric functions are so called because the radian measurement of an angle is, by definition, the distance of the ``arc'' you traverse when walking along the unit circle around that angle. So while trig functions can be thought to input distances of arcs, the inverse trig functions can be thought to \emph{output} distances of arcs, hence the names \emph{arcsine}, \emph{arccosine}, \emph{arctangent}, etc. In hyperbolic geometry there is no such relationship between angle and distance along a circle, which leads us to question the utility of the prefix ``arc'' when discussing inverse hyperbolic trig functions. To end the debate definitively, the ISO (International Organization for Standardization) deemed in 2009 that we should instead drop the $c$ and be using the terms \emph{arsinh} and \emph{arcosh} and \emph{artanh} for inverse hyperbolic trig functions. At least that's what Wikipedia told me. When I went to the ISO website, the relevant sections were hidden behind a paywall, so we will be using \emph{arctanh} out of spite.
+
+\begin{exercise}\label{exer:m-series-for-L-genus} 
+Verify that the multiplicative series attached to the $L$-genus satisfies
+\begin{align*}
+    L_1 &= \frac{1}{3}p_1 \\
+    L_2 &= \frac{1}{45}(7p_2-p_1^2) \\
+    L_3 &= \frac{1}{3^3\cdot5\cdot 7} (62p_3 - 13p_1p_2 + 2p_1^3) \\
+    L_4 &= \frac{1}{3^4 5^2 7} (381 p_4 - 71 p_1 p_3 - 19 p_2^2 + 22p_1^2 p_2 -3 p_1^4) \\
+    % L_5 &= \cdots
+\end{align*}
+\end{exercise}
+
+\begin{exercise} Show that
+\begin{align*}
+    \phi_L \left( [\HP^k] \right) = \begin{cases} 0 & k\text{ odd} \\ 1 & k\text{ even.} \end{cases}
+\end{align*}
+\end{exercise}
 
 
 
