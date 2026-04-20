@@ -1,15 +1,3 @@
-\documentclass[11pt]{amsart}
-\input{commands.tex}
-\renewcommand{\P}{\mathbb{P}}
-\usepackage[textsize=tiny]{todonotes}
-\title{Leray Spectral Sequence}
-\author{David Ettel}
-\date{Last compiled: \today}
-\begin{document}
-\maketitle
-
-
-
 In this appendix we will give an introduction to the Leray spectral sequence. We will specialize to the so-called Leray-Serre spectral sequence and prove Leray-Hirsch theorem as well as more general statement along the way. Finally, we will apply the Leray-Hirsch theorem to prove that if $E \to X$ is a vector bundle and $\mathbb{P}(E)$ is its projectivization, then $H^\ast(\mathbb{P}(E),\mathbb{Z})$ is free over $H^\ast(X,\mathbb{Z})$. Before we dive into the mathematical theory, it is worthwhile to look at how and when it was first developed as its history is quite inspirational.
 
 
@@ -254,22 +242,3 @@ Why should we care about this particular result?
 It is relevant because it tells us that the cohomology of the projectivization $\P[E]$ is governed in a remarkably simple way by the cohomology of the underlying base space $X$. Since the fiber of $\P[E]\to X$ is a projective space, whose cohomology is well understood, the theorem says that no unexpected cohomology classes appear in passing from the fiber and the base to the total space. In this sense, $\P[E]$ behaves cohomologically as well as one could hope: its cohomology is built freely from that of $X$ together with the standard classes coming from the fiber.
 
 This is useful both conceptually and computationally. On the computational side, freeness over $H^*(X;\Z)$ is the key step toward the projective bundle formula, which gives an explicit description of $H^*(\P[E];\Z)$ in terms of $H^*(X;\Z)$ and the Chern classes of $E$. On the conceptual side, this theorem provides one of the most important applications of the Leray-Hirsch theorem and serves as a model for many other arguments in the theory of characteristic classes, especially the splitting principle, where one studies a vector bundle by passing to a space over which it decomposes into line bundles.
-
-\bibliography{zbib.bib}
-\bibliographystyle{amsalpha}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\end{document}
