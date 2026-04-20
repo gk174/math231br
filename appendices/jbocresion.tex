@@ -7,7 +7,8 @@
 % \date{Last compiled: \today}
 
 % \setcounter{section}{-1}
-\section{Overview}
+\section{Thom's computation of $\MSO_\ast$ (Joaquim Bocresion)}
+\subsection{Overview}
 Thom's seminal 1954 paper included several novel notions in topology at its time of publication. Among them included the first definition of transversality in the literature, his question of realization of homology classes by submanifolds, and the following theorem and subject of this exposition:
 \begin{theorem}[\cite{Hirzebruch} Theorem 7.2.2; cf. \cite{thom} Theorem 4.15]
 The groups $\Omega^n$ are finite for $i\not\equiv 0\pmod 4$. In the case that $i\equiv 0\pmod 4$, we have $\Omega^{4k}=\Z^{\pi(k)}\oplus G$, for $\pi$ the partition function and $G$ a finite group.
@@ -16,8 +17,8 @@ We will work towards a modern-dress contextualization and proof of this theorem 
 
 
 
-\section{Thom Spaces and Spectra}
-\subsection{Overview}
+\subsection{Thom Spaces and Spectra}
+\subsubsection{Overview}
 We will construct Thom spaces following \cite{thom}. We will then generalize to the more modern notion of the Thom spectrum. 
 
 Fix $G\subset O(k)$ some closed subgroup. The universal bundle $\pi: EG\to BG$ classifies all (iso classes of) fiber bundles with structure group $G$ via pullback along (homotopy classes of) maps $X\to BG$. We can specialize to the case of $S^{k-1}$-bundles via taking the associated bundle $\pi':E'G=EG\times_G S^{k-1}\to BG$. With this data we can construct the \textit{mapping cylinder} of $\pi$,
@@ -51,7 +52,7 @@ It is not obvious that Eilenberg-Maclane spaces exist, though it turns out that 
 
 
 
-\section{Thom Spectra and Stable Homotopy}
+\subsection{Thom Spectra and Stable Homotopy}
 We develop the necessary homotopy theoretic tools for a modern-dress treatment of Thom's ideas. We follow Chapter 22 of \cite{maybook} and \cite{malkiewich}
 \begin{definition}[Spectrum]
     A spectrum is a sequence of based spaces $E=\{E_n\}$ together with a collection of bonding maps 
@@ -97,7 +98,7 @@ For any $k$ we have an isomorphism of groups
     proof to be added
 \end{proof}
 
-\section{Constructing maps}
+\subsection{Constructing maps}
 \begin{theorem}[Brown Representability]
     For any CW complex $X$, we have
     \[[X,K(G,n)]_*\cong \widetilde H^n(X;G),\]
@@ -143,7 +144,7 @@ have
 \end{proof}
 With this identification done, one would hope to be able to relate the cohomology of $MSO(k)$ to the homotopy groups of $MSO(k)$, from which we could extract the stable homotopy groups $\pi^s_\bullet MSO$. Under nice circumstances, the Hurewicz theorem would prove a useful tool for this, but the standard Hurewicz theorem will not suffice for this problem. The solution ends up being a set of homological tools coming from Serre's theory of classes.
 
-\section{Detour: Serre's Class Theory}
+\subsection{Detour: Serre's Class Theory}
 We follow Chapter 4 of \cite{millerLecturesAlgebraicTopology2021}. 
 \begin{definition}[Serre Class]
     A Serre class $\mathscr C$ is a subcategory of $\Ab$ such that
@@ -175,7 +176,7 @@ Serre classes are useful because, for sufficiently nice Serre classes, we get mo
     \end{enumerate}
 \end{theorem}
 By epimorphism (resp. isomorphism) mod $\mathscr C$, we mean a morphism whose cokernel (resp. kernel and cokernel) lie in $\mathscr C$.
-\section{Proving Theorem 0.1}
+\subsection{Proving Theorem 0.1}
 With a short primer on Serre's theory of classes out of the way, we can prove Thom's main theorem. Henceforth, let $\mathscr C$ denote the class of all finite groups. This is clearly an acyclic Serre ring. 
 \begin{proof}[Proof of Theorem 0.1]
 Firstly, we have $\Omega_n^{SO}\cong \pi_n^s(MSO)=\pi_{n+k}(MSO(k))$ for $k>n$. By \ref{result?}, we know that the map $F:MSO(k)\to Y$ induces an isomorphism on rational cohomology. This means that $F_*:H_i(M(SO(k));\Q)\to H_i(Y;\Q)$ is an isomorphism for all $i$. 

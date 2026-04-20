@@ -798,6 +798,7 @@ We have very little control over these refinement maps, as the following result 
 
 \begin{example}\label{exa:s1-north-south-cech-cohomology} 
 On $S^1$, we can take a simple cover consisting of only all of $S^1$, letting $F=\underline{\Z}$ be the constant sheaf $\Z$. Then the \v{C}ech cochains complex for this is the chain complex $\Z[0]$ concentrated in degree zero. This gives $\check{H}^0(\mathcal{U},F) = \Z$ and vanishing cohomology elsewhere. On the other hand, we can take a cover $S^1 = U_0 \cup U_1$, where $U_0$ and $U_1$ are the upper and lower semicircle, plus a little extra so that they overlap:
+\begin{center}
 \begin{figure}[H]
 \begin{tikzpicture}[scale=2]
   % circle
@@ -825,7 +826,7 @@ On $S^1$, we can take a simple cover consisting of only all of $S^1$, letting $F
 
 \end{tikzpicture}
 \end{figure}
-
+\end{center}
 Note that $\check{C}^1(\mathcal{U},F) = \Z^{\times 2}$ in this instance, since $U_0 \cap U_1$ has two connected components. The chain complex here then looks like
 \begin{align*}
     \check{C}^\bullet(\mathcal{U},F) : \quad\quad 0 \to \Z \oplus \Z \xto{\begin{pmatrix} 1 & -1 \\ 1 & -1\end{pmatrix}} \Z \oplus \Z \to 0 \to \cdots
@@ -3912,6 +3913,244 @@ The other rather shocking fact that follows immediately from the Hirzebruch sign
 \end{corollary}
 
 
+\section{Complex genera}
+
+\subsection{Complex cobordism}
+
+
+Recall $\Omega^\SO_\ast$ classified smooth oriented closed manifolds up to smooth oriented cobordism. Thom assembled a space $\MSO$ whose homotopy groups came with a graded ring isomorphism $\pi_\ast\MSO \cong \Omega^\SO_\ast$ \cite{thomQuelquesProprietesGlobales1954} (see Joaquim's appendix for more about this). This construction (now called the \emph{Thom spectrum} construction) was very general, and in \cite{milnorCobordismRingOmega1960}, Milnor observed that it could be applied to the unitary group, from which be built a space $\MU$. A natural question to ask is whether $\pi_\ast \MU$ admits an interpretation in terms of cobordism, and he mentions that it does, and this is proven in the upcoming Part II of the paper \cite{milnorCobordismRingOmega1960}. This never was written, however Thom wrote an account of these results in \cite[\S5]{thomTravauxMilnorCobordisme1958}.\footnote{Be aware, if you read Thom's work, that \emph{vari\'et\'e} really means manifold, although in other French math it means variety, and it is very context-dependent. See \href{https://reyssat.users.lmno.cnrs.fr/dico/dicofa.html}{here} for more.}
+
+The answer is that yes, $\MU_\ast$ admits an interpretation in terms of cobordism, but it's not quite as simple as ``complex manifolds up to cobordism.'' There are a few key issues in trying to set this up:
+\begin{itemize}
+    \item \emph{the dimension issue}: unlike oriented or real bordism, we can't take a complex manifold to exhibit a cobordism between two complex manifolds. This is simply due to dimension reasons: if $M$ and $N$ are complex manifolds of complex dimension $n$, they have real dimension $2n$, so any cobordism $W = \del M \amalg \del N$ will have real dimension $(2n+1)$, hence won't be complex
+    \item \emph{the inverse issue}: for real oriented manifolds, we could just swap the orientation, forming $\bar{M}$ out of $M$. Complex manifolds have a canonical orientation coming from the complex structure, and if we try to form the analogous $\bar{M}$, it won't be a complex manifold anymore.
+\end{itemize}
+All of this tells us that we should allow ourselves to leave the world of complex manifolds, or at least to weaken the structure we're asking for a bit. We'll see a posteriori that we actually didn't lose much by doing this.
+
+\begin{remark} We want to see quickly how $\GL_n(\C)$ lives inside $\GL_{2n}(\R)$ as a subgroup. When $n=1$, we can pick a real basis $\left\{ 1,i \right\}$ for $\C \cong \R^2$. In that basis, a complex number $a+bi$ acts via multiplication on some $c+di$ via $ad-bc + (bc+ad)i$. So what is the $2 \times 2$ matrix representing this? We're solving for
+\begin{align*}
+    \begin{pmatrix} - & - \\ - & - \end{pmatrix} \begin{pmatrix} c \\ d \end{pmatrix}  &= \begin{pmatrix} ad-bc \\ bc+ad \end{pmatrix}.
+\end{align*}
+It's clear that the matrix must be $\begin{pmatrix} a & -b \\ b & a \end{pmatrix}$. This gives us a group homomorphism (exercise: check it's multiplicative)
+\begin{align*}
+    \GL_1(\C) &\to \GL_2(\R) \\
+    a + bi &\mapsto \begin{pmatrix} a & -b \\ b & a \end{pmatrix}.
+\end{align*}
+More generally, we get a map
+\begin{equation}\label{eqn:glnc-to-gl2nr}
+\begin{aligned}
+    \GL_n(\C) &\to \GL_{2n}(\R) \\
+    \begin{pmatrix} a_{11} + b_{11} i & \cdots  & a_{1n} + b_{1n} i \\
+    \vdots & \ddots & \vdots \\
+    a_{n1} + b_{n1} i & \cdots & a_{nn} + b_{nn} i\end{pmatrix} &\mapsto
+    \begin{pNiceArray}{cc|c|cc}
+        a_{11} & -b_{11} & \Block{2-1}<\normalsize>{\cdots} & a_{1n} & -b_{1n} \\
+        b_{11} & a_{11} & & b_{1n} & a_{1n}\\
+        \hline
+        \Block{1-2}<\normalsize>{\vdots} & & \ddots & \Block{1-2}<\normalsize>{\vdots} \\
+        \hline
+        a_{n1} & -b_{n1} & \Block{2-1}<\normalsize>{\cdots} & a_{nn} & -b_{nn} \\
+        b_{n1} & a_{n1} & & b_{nn} & a_{nn} 
+    \end{pNiceArray}.
+\end{aligned}
+\end{equation}
+There is a $C_2$-action on $\GL_{2n}(\R)$ sending each $2\times2$ block to $-1$ times its transpose, and we can see that a matrix lies in the image of the group homomorphism above if and only if it is fixed under this action. This is a baby example of Galois descent.
+\end{remark}
+
+
+\begin{definition}\label{def:almost-complex-structure} Let $M$ be a real $2n$-manifold, and let $M \to \BGL_{2n}(\R)$ be the map classifying its tangent bundle. We say that $M$ admits an \emph{almost complex structure} if we have a lift
+\[ \begin{tikzcd}
+     & \BGL_n(\C)\dar\\
+    M\ar[ur,dashed]\rar & \BGL_{2n}(\R),
+\end{tikzcd} \]
+where the map $\BGL_n(\C) \to \BGL_{2n}(\R)$ is induced by \Cref{eqn:glnc-to-gl2nr}. Phrased differently, the tangent bundle of $M$ lies in the image of the map
+\begin{align*}
+    \check{H}^1(M,\GL_n(\C)) \to \check{H}^1(M,\GL_{2n}(\R)).
+\end{align*}
+\end{definition}
+
+\begin{remark} An almost complex structure on $TM$ is a vector bundle homomorphism $J \colon TM \to TM$ which has the property that $J^2 = -1$, that is, if we compose it twice it will act as scaling via $-1$. Roughly speaking, $J$ is intended to mimic ``multiplication by $i$'' but it is only doing it on the fibers. To become an actual complex structure (that is, for $M$ to genuinely be a complex manifold), we need the existence of coordinates on which $J$ acts as multiplication by $i$. This need not exist.
+\end{remark}
+
+Still, an almost complex manifold must be of even dimension (exercise). So we instead work with an even weaker notion.
+
+\begin{definition}\label{def:stably-almost-complex-manifold} We say that a manifold $M$ is \emph{stably almost complex} if $TM \oplus \epsilon_\R^k$ admits an almost complex structure for some $k\ge0$.
+\end{definition}
+
+Unlike almost complex manifolds, we can have odd-dimensional \emph{stably} almost complex manifolds.
+
+\begin{example}[{\cite[D.2]{guilleminMomentMapsCobordisms2002}}] We have that $S^5$ admits a stably almost complex structure, since $TS^5 \oplus \epsilon_\R^1 \cong \epsilon_\R^6 \cong \epsilon_\C^3$, however it clearly has no almost complex structure.
+\end{example}
+
+With that in mind, we can define complex bordism.
+
+\begin{definition}\label{def:complex-cobordism} Let $M$ and $N$ be two compact $n$-manifolds stably almost complex bundles. We say they are \emph{complex cobordant} if there exists a stably almost complex manifold $W$ whose stably almost complex structure restricts to that of $M$ and $N$. We let $\Omega_{n}^U$ denote the abelian group on such manifolds up to complex cobordism, and $\Omega_\ast^U := \bigoplus_{n\ge0} \Omega_n^U$ the associated graded ring.
+\end{definition}
+
+\begin{theorem}[Milnor, Thom] There is a ring isomorphism
+\begin{align*}
+    \pi_\ast\MU \cong \Omega_\ast^U.
+\end{align*}
+\end{theorem}
+
+One of the beautiful theorems of 20th century topology is Lazard's theorem:
+
+\begin{theorem}[Lazard's theorem] We have an isomorphism
+\begin{align*}
+    \Omega^U_\ast \cong \Z[x_1,x_2, \ldots]
+\end{align*}
+where each $x_i$ has degree $2i$.\footnote{We'll say more about these $x_i$ soon.}
+\end{theorem}
+
+\begin{theorem} We have that
+\begin{align*}
+    \Omega_\ast^U \otimes\Q \cong \Q[\CP^1, \CP^2, \CP^3, \ldots].
+\end{align*}
+\end{theorem}
+
+
+\begin{corollary} We see that $\Omega^U_{2n+1}= 0$, and that $\Omega_{2n}^U \cong \Z^{\pi(n)}$, where $\pi$ is the partition function.
+\end{corollary}
+
+\subsection{How far is complex cobordism away from complex manifolds?}
+
+A beautiful theorem that can be found in Stong's book is the following:
+
+\begin{theorem}[{\cite[p.~130]{stongNotesCobordismTheory1968}}] Let $n>0$ and $x\in \Omega_n^U$. Then there exists a (not necessarily connected) complex manifold $M$ so that $[M]=x$. In fact, $M$ can be taken to be a smooth complex algebraic variety.
+\end{theorem}
+
+Thus, after the fact, we can think about $\Omega_\ast^U$ as complex manifolds up to an equivalence relation, and there is no need to consider stably almost complex manifolds until we define the equivalence relation.
+
+In general, exhibiting what kinds of varieties can appear as representatives of complex cobordism classes is a very interesting line of inquiry. An example result in this direction is the following:
+
+\begin{theorem}[{\cite{bukhshtaberToricManifoldsComplex1998}}] Any $x\in \Omega^U_{2n}$ can be represented by a toric manifold.
+\end{theorem}
+
+\subsection{Chern numbers}
+
+Similarly to how we showed Pontryagin numbers were oriented cobordism invariants, we want to see that Chern numbers give complex cobordism invariants. Recall we can define Chern classes for any complex vector bundle, in particular one coming from an almost complex structure. Since Chern classes are designed to be stable invariants (they are insensitive to adding on a trivial complex vector bundle), it makes sense to define their Chern numbers.
+
+\begin{notation} Let $M^{2n}$ be a compact $2n$-dimensional stably complex manifold, which is necessarily oriented.\footnote{Every stably almost complex manifold is oriented, coming from the orientation on $TM \oplus \epsilon_\R^k$.} Let $I = (i_1, \ldots, i_k)$ be a partition of $n$. Then we define the $I$th \emph{Chern number} of $M$ to be
+\begin{align*}
+    c_I(M) = \int_M c_{i_1}(TM) \cdots c_{i_k}(TM) \in H^{2n}(M,\Z) \cong \Z.
+\end{align*}
+\end{notation}
+
+\begin{theorem}{[Milnor-Novikov, \cite[Theorem~1'']{milnorSURVEYCOBORDISMTHEORY1962}}] A closed stably almost complex manifold is the boundary of a stably complex manifold if and only if all its Chern numbers are zero.
+\end{theorem}
+
+This is our primary step to studying complex genera.
+
+\subsection{Complex genera}
+
+\begin{definition}\label{def:complex-genera}
+Let $R\in \CAlg_\Q$ be an integral domain which is a commutative unital algebra over $\Q$. We define a \emph{complex genus} to be a ring homomorphism
+\begin{align*}
+    \Omega^U_\ast \to R.
+\end{align*}
+\end{definition}
+
+Just as in the case of genera (for oriented cobordism), we can set up a correspondence to formal power series, now not necessarily assumed to be even. Now the Chern classes will play the role that the Pontryagin classes played for ordinary genera.
+
+\begin{theorem}\label{thm:complex-genera} For any unital integral domain $R\in\CAlg_\Q$, there is a bijection between complex genera and formal power series:
+\begin{align*}
+    \left\{ \text{complex genera valued in }R \right\} \leftrightarrow 1 + R[[x]].
+\end{align*}
+A complex genus $\phi$ is uniquely determined by the values of $\phi([\CP^n])$ for all $n\ge1$.
+\end{theorem}
+\begin{proof} Completely analogous to \Cref{thm:genera-char-series-bijection}.
+\end{proof}
+
+A natural question to ask, then, is whether there is an analogous genus to the $L$-genus for complex genera? The answer is yes -- it is the so-called \emph{Todd genus}.
+
+\begin{definition}\label{def:Todd-genus} We define the \emph{Todd genus}
+\begin{align*}
+    \td \colon \Omega^U_\ast \to \Q
+\end{align*}
+to be the unique genus satisfying $\td([\CP^n]) = 1$ for all $n\ge1$.
+\end{definition}
+
+\begin{notation} We will use $\td(M)$ for the Todd genus of an almost complex manifold, while Hirzebruch uses $T(M)$. By type-checking, we could get away with using $TM$ for both the Todd class and the tangent bundle, but we'll prefer the former notation for clarity.
+\end{notation}
+
+\begin{theorem}[{\cite[10.3.1]{Hirzebruch}}]
+The Todd genus is given by the characteristic series
+\begin{align*}
+    Q_\td(x) = \frac{x}{1-e^{-x}}.
+\end{align*}
+\end{theorem}
+\begin{proof} We just have to check the value of $\phi_\td([\CP^n])$. By the Cauchy residue theorem, this will be the coefficient on $x^n$ in the expression $(Q(x))^{n+1}$. We start to compute this as
+\begin{align*}
+    \phi_\td([\CP^n]) &= \res_0 \left( \frac{Q(x)^{n+1}}{x^{n+1}} dx \right) \\
+    &= \res_0 \left( \frac{1}{(1- e^{-x})^{n+1}} dx \right). \\
+    &= \res_0 \left( \frac{e^{x(n+1)}}{(e^x - 1)^{n+1}}dx \right).
+\end{align*}
+We now want to do a $u$-substitution. Let $z=e^x$, so $dz = e^xdx$, and note that the location of the residue changes after this $u$-sub (even though its winding number doesn't). So we get
+\begin{align*}
+    \phi_{\td}([\CP^n]) = \res_1 \left( \frac{z^n dz}{(z-1)^{n+1}} \right) = 1.
+\end{align*}
+\end{proof}
+
+\subsection{Computing the Todd genus}
+To compute the Todd genus of a manifold, we need to know its corresponding $m$-sequence. Let $M^n$ be a stably almost complex $n$-manifold, and let $\xi_1, \ldots, \xi_n$ denote its Chern roots, so that $c_i$ is the $i$th elementary polynomial in them. We can then expand $\prod_{i=1}^n Q(\xi_i)$ and group terms of similar degrees to compute the $m$-sequence. We'll refer to the $m$-sequence as $\td_i(M)$, so that $\td(M) = \td_0(M) + \td_1(M) + \cdots$, and we have that $\td(M^n) = \int_M \td(M) = \int_M \td_n(M)$. It'll be helpful to write down the first few terms of the characteristic series for the Todd genus:
+\begin{align*}
+    \frac{x}{1-e^{-x}} &= 1 + \frac{x}{2} + \frac{x^2}{12} - \frac{x^4}{720} + O(x^6).
+\end{align*}
+First, it is immediate that $\td_0(M) = 1$ for all manifolds $M$, since $\frac{x}{1-e^{-x}}$ has constant term $1$. If $M$ is complex 1-dimensional, then $\td_1 = c_1/2$. The first interesting computation is $\td_2$:
+\begin{align*}
+    Q_\td(\xi_1)Q_\td(\xi_2) &= \left( 1 + \frac{\xi_1}{2} + \frac{\xi_1^2}{12} + \ldots  \right)\left( 1 + \frac{\xi_2}{2} + \frac{\xi_2^2}{12} + \ldots  \right)\\
+    &= 1 + \frac{c_1}{2} + \frac{\xi_1^2 + \xi_2^2}{12} + \frac{\xi_1 \xi_2}{4} + \ldots
+\end{align*}
+just looking at the degree 2 terms here we get
+\begin{align*}
+    \frac{1}{12} \left( \xi_1^2 + \xi_2^2 + 3\xi_1 \xi_2 \right) &= \frac{1}{12} \left( (\xi_1 + \xi_2)^2  + \xi_1 \xi_2 \right) = \frac{c_1^2 + c_2}{12}.
+\end{align*}
+Continuing on, we get
+\begin{align*}
+    \td_0 &= 1\\
+    \td_1 &= \frac{1}{2}c_1 \\
+    \td_2 &= \frac{1}{12}(c_1^2+c_2) \\
+    \td_3 &= \frac{1}{24}c_1c_2 \\
+    \td_4 &= \frac{1}{720} \left( -c_4 + c_1 c_3 + 3c_2^2 + 4c_1^2c_2 - c_1^4 \right) \\
+    \td_5 &= \frac{1}{1440} \left( -c_1c_4 + c_1^2c_3 + 3c_1 c_2^2 - c_1^2 c_2 \right).
+\end{align*}
+%
+\begin{example} Let $\Gr_\C(2,4)$ denote the complex Grassmannian of 2-planes in 4-space. This is a complex 4-manifold, and we can compute its Todd class either by hand or using \texttt{Schubert2}, say \cite{Schubert2Source}:
+\begin{verbatim}
+loadPackage "Schubert2";
+integral todd flagBundle({2,4})
+
+o2 = 1
+\end{verbatim}
+This tells us that $\td(\Gr_\C(2,4)) = 1$. In fact the Todd classes of all Grassmannians are $1$.
+\end{example}
+
+\begin{example} Let $C$ be an elliptic curve, then $\td(C) = 0$.
+\end{example}
+\begin{proof} As an abelian variety, its tangent space is trivial, hence $c_1(TC) = 0$, and therefore
+\begin{align*}
+    \td(C) = \int_C \frac{c_1(C)}{2} = 0.
+\end{align*}
+\end{proof}
+
+\begin{example} Any K3 surface $X$ has $\td(X) = 2$. As an example, we can consider a quartic hypersurface in $\mathbb{P}^3$ which is a model for a K3 surface, and we compute:
+\begin{verbatim}
+loadPackage "Schubert2";
+P3 = abstractProjectiveSpace 3;
+X = sectionZeroLocus OO_P3(4);
+integral todd X
+
+o4 = 2
+\end{verbatim}
+\end{example}
+
+
+
+\subsection{Looking ahead to HRR}
+
+Just as the $L$-genus agrees with the index of a manifold, we will see the Todd genus agrees with a different invariant of an algebraic manifold, namely its so-called \emph{arithmetic genus}, which is defined in terms of sheaf cohomology. This is essentially the content of \emph{Hirzebruch-Riemann-Roch}.
+
+
 
 
 
@@ -3920,7 +4159,7 @@ The other rather shocking fact that follows immediately from the Hirzebruch sign
 \newpage
 \appendix
 \chapter{Appendices}
-
+\minitoc
 \section{Category theory}
 If you are unfamiliar with colimits I really recommend reading Chapter 3 of \cite{riehlCategoryTheoryContext2016}.
 
@@ -4310,10 +4549,11 @@ The story for simplicial abelian groups can be found in \cite[VIII.6]{Maclane-ho
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Student appendices}
+\minitoc
 
 \include{appendices/jbocresion}
 \include{appendices/Kemplin_Appendix}
-\include{appendices/Vincent_Josh_Appendix}
+%\include{appendices/Vincent_Josh_Appendix}
 %\include{appendices/Draft_David}
 
 
