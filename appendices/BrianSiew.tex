@@ -102,7 +102,7 @@ whence we seize the opportunity to define a new form of cohomology, following \t
 \begin{definition}
     For a complex manifold $X$, the $(p,q)$-\emph{Dolbeault cohomology} is the vector space:
     $$
-    H^{p,q}_{\bar\partial}(X) := H^q\left(\mathcal{A}^{p,\bullet}(X), \bar\partial\right) = \frac{\ker \left(\bar\partial:\mathcal{A}^{p,q}(X) \to \mathcal{A}^{p,q+1}(X)\right)}{\image \left(\bar\partial:\mathcal{A}^{p,q-1}(X) \to \mathcal{A}^{p,q}(X)\right)}
+    H^{p,q}_{\bar\partial}(X) := H^q\left(\mathcal{A}^{p,\bullet}(X), \bar\partial\right) = \frac{\ker \left(\bar\partial:\mathcal{A}^{p,q}(X) \to \mathcal{A}^{p,q+1}(X)\right)}{\im \left(\bar\partial:\mathcal{A}^{p,q-1}(X) \to \mathcal{A}^{p,q}(X)\right)}
     $$
 \end{definition}
 
@@ -123,7 +123,7 @@ Before we discuss the Fr\"olicher spectral sequence, we review the mechanism of 
 
 \noindent Now, note that we have an inclusion of the complexes $F^pK^\bullet \hookrightarrow K^\bullet$, and since $F^pK^\bullet$ is a subcomplex, this commutes with the differential. We can therefore pass to cohomology and get a natural map $H^n\left(F^pK^\bullet\right) \to H^n\left(K^\bullet\right)$, from which we observe that a filtration on a complex naturally gives rise to a filtration on the cohomology, namely:
 $$
-F^pH^n\left(K^\bullet\right):= \image \left(H^n\left(F^pK^\bullet\right) \to H^n\left(K^\bullet\right)\right)
+F^pH^n\left(K^\bullet\right):= \im \left(H^n\left(F^pK^\bullet\right) \to H^n\left(K^\bullet\right)\right)
 $$
 
 \begin{definition}
@@ -145,14 +145,14 @@ E_0^{p-1, q} \arrow[u, "d_0"] & E_0^{p, q} \arrow[u, "d_0"] & E_0^{p+1, q} \arro
 E_0^{p-1, q-1} \arrow[u, "d_0"] & E_0^{p, q-1} \arrow[u, "d_0"] & E_0^{p+1, q-1} \arrow[u, "d_0"]
 \end{tikzcd}\]
 
-\item \textbf{The $E_1$ page:} We turn the page by taking cohomology: $E_1^{p,q} = \ker d_0 / \image d_0$. The original differential $d$ now induces ``horizontal'' arrows $d_1: E_1^{p,q} \to E_1^{p+1, q}$. 
+\item \textbf{The $E_1$ page:} We turn the page by taking cohomology: $E_1^{p,q} = \ker d_0 / \im d_0$. The original differential $d$ now induces ``horizontal'' arrows $d_1: E_1^{p,q} \to E_1^{p+1, q}$. 
 \[\begin{tikzcd}
 E_1^{p-1, q+1} \arrow[r, "d_1"] & E_1^{p, q+1} \arrow[r, "d_1"] & E_1^{p+1, q+1} \\
 E_1^{p-1, q} \arrow[r, "d_1"] & E_1^{p, q} \arrow[r, "d_1"] & E_1^{p+1, q} \\
 E_1^{p-1, q-1} \arrow[r, "d_1"] & E_1^{p, q-1} \arrow[r, "d_1"] & E_1^{p+1, q-1}
 \end{tikzcd}\]
 
-\item \textbf{The $E_2$ page and beyond:} Again, we take cohomology: $E_2^{p,q} = \ker d_1 / \image d_1$. The arrows now moves two steps to the right and one step down: $d_2: E_2^{p,q} \to E_2^{p+2, q-1}$. In general, the $r^\text{th}$ page differential (for a cohomological spectral sequence) goes $r$ steps to the right and $r-1$ steps down: $d_r: E_r^{p,q} \to E_r^{p+r, q-r+1}$.
+\item \textbf{The $E_2$ page and beyond:} Again, we take cohomology: $E_2^{p,q} = \ker d_1 / \im d_1$. The arrows now moves two steps to the right and one step down: $d_2: E_2^{p,q} \to E_2^{p+2, q-1}$. In general, the $r^\text{th}$ page differential (for a cohomological spectral sequence) goes $r$ steps to the right and $r-1$ steps down: $d_r: E_r^{p,q} \to E_r^{p+r, q-r+1}$.
 \[\begin{tikzcd}
 E_2^{p-2, q+1} \arrow[drr, "d_2"] & E_2^{p-1, q+1} & E_2^{p, q+1} & E_2^{p+1, q+1} \\
 E_2^{p-2, q} & E_2^{p-1, q} \arrow[drr, "d_2" near start] & E_2^{p, q} & E_2^{p+1, q} \\
@@ -176,7 +176,7 @@ E_2^{p-2, q-1} & E_2^{p-1, q-1} & E_2^{p, q-1} & E_2^{p+1, q-1}
     There exist complexes $\left(E_r^{p,q}, d_r\right)$ where $d_r:E_r^{p,q} \to E_r^{p+r,q-r+1}$ satisfying the following conditions:
     \begin{enumerate}[i.]
         \item $E_0^{p,q}=\mathrm{Gr}_p^F K^{p+q}:= F^pK^{p+q}/F^{p+1}K^{p+q}$, with $d_0$ induced by $d$.
-        \item The $E_{r+1}$ page is determined by the cohomology of the $E_r$ page. Concretely, $E_{r+1}^{p,q} = \ker\left(d_r:E_r^{p,q}\to E_r^{p+r,q-r+1}\right)/\image \left(d_r:E_r^{p-r, q+r-1}\to E_r^{p,q}\right)$. 
+        \item The $E_{r+1}$ page is determined by the cohomology of the $E_r$ page. Concretely, $E_{r+1}^{p,q} = \ker\left(d_r:E_r^{p,q}\to E_r^{p+r,q-r+1}\right)/\im \left(d_r:E_r^{p-r, q+r-1}\to E_r^{p,q}\right)$. 
         \item Fix $p+q$. Then for $r$ sufficiently large, the sequence degenerates and we have $E_r^{p,q} = E_\infty^{p,q} = \mathrm{Gr}_p^F H^{p+q}\left(K^\bullet\right)$. We denote this convergence as $E_1^{p,q} \Rightarrow H^{p+q}\left(K^\bullet\right)$.
     \end{enumerate}
 \end{theorem}
@@ -219,9 +219,9 @@ E_2^{p-2, q-1} & E_2^{p-1, q-1} & E_2^{p, q-1} & E_2^{p+1, q-1}
 
         \medskip
         
-        Then, if $z \in B_{r+1}^{p,q}$, we can write $z=z_1+dz_2$ for $z_1 \in Z_r^{p+1,q-1}$ and $z_2\in Z_r^{p-r,q+r-1}$. Since $Z_r^{p+1,q-1}\subseteq Z_{r-1}^{p+1,q-1}\subseteq B_r^{p,q}$, we have $\bar{z} = \overline{z_1+dz_2} = \overline{dz_2}$. But since $z_2\in Z_r^{p-r,q+r-1}$, $dz_2 \in Z_r^{p,q}$, so this descends to the quotient and we have $d_r\left(\overline{z_2}\right) = \overline{dz_2} =\bar z$. In other words, $\bar z \in \image\left(d_r:E_r^{p-r,q+r-1} \to E_r^{p,q}\right)$. Thus, taking the class of an element in $E_r^{p,q}$ produces a map:
+        Then, if $z \in B_{r+1}^{p,q}$, we can write $z=z_1+dz_2$ for $z_1 \in Z_r^{p+1,q-1}$ and $z_2\in Z_r^{p-r,q+r-1}$. Since $Z_r^{p+1,q-1}\subseteq Z_{r-1}^{p+1,q-1}\subseteq B_r^{p,q}$, we have $\bar{z} = \overline{z_1+dz_2} = \overline{dz_2}$. But since $z_2\in Z_r^{p-r,q+r-1}$, $dz_2 \in Z_r^{p,q}$, so this descends to the quotient and we have $d_r\left(\overline{z_2}\right) = \overline{dz_2} =\bar z$. In other words, $\bar z \in \im\left(d_r:E_r^{p-r,q+r-1} \to E_r^{p,q}\right)$. Thus, taking the class of an element in $E_r^{p,q}$ produces a map:
         $$
-        Z_{r+1}^{p,q}/B_{r+1}^{p,q} \to \ker \left(d_r:E_r^{p,q} \to E_r^{p+r,q-r+1}\right) / \image\left(d_r:E_r^{p-r,q+r-1} \to E_r^{p,q}\right)
+        Z_{r+1}^{p,q}/B_{r+1}^{p,q} \to \ker \left(d_r:E_r^{p,q} \to E_r^{p+r,q-r+1}\right) / \im\left(d_r:E_r^{p-r,q+r-1} \to E_r^{p,q}\right)
         $$
         
         It remains to show that this map is a bijection. We show surjectivity first. Let $\bar z \in \ker d_r$, and pick some representative $z\in Z_r^{p,q}$, then $d_r(\bar z) = 0 \implies$ the class of $dz$ in $E_r^{p+r,q-r+1}$ is zero, i.e. $dz \in B_r^{p+r,q-r+1} = dZ_{r-1}^{p+1,q-1} +Z_{r-1}^{p+r+1,q-r}$. So there exists $w\in Z_{r-1}^{p+1,q-1}$ such that $d(z-w) \in Z_{r-1}^{p+r+1,q-r}\subseteq F^{p+r+1}K^{p+q+1}$. On the other hand, $z\in F^pK^{p+q}$ and $w\in F^{p+1}K^{p+q} \subseteq F^pK^{p+q}$, so $z-w\in F^pK^{p+q}$, and this gives us $z-w\in Z_{r+1}^{p,q}$. Then, since $w\in Z_{r-1}^{p+1,q-1}\subseteq B_r^{p,q}$, we have $\bar w=0$, and $\overline{z-w} = \bar z$. Hence, there exists $z-w$ sent by the map above to $\bar z$, and it is thus surjective. For brevity, we omit the proof for injectivity. 
@@ -234,12 +234,12 @@ E_2^{p-2, q-1} & E_2^{p-1, q-1} & E_2^{p, q-1} & E_2^{p+1, q-1}
         $$
         Z_{\ell}^{p+1,q-1} = \left\{x\in F^{p+1}K^n\mid dx\in F^{p+1+\ell} K^{n+1}=0\right\} = \ker \left(d:F^{p+1}K^n\to F^{p+1}K^{n+1}\right)
         $$
-        Then, since $\ell \geq n=p+q \implies p-\ell \leq -q \leq 0$, so $Z_\ell^{p-\ell,q+\ell-1} = \left\{x\in F^{p-\ell}K^{n-1} =K^{n-1}\mid dx\in F^p K^{n}\right\}$. Now, we apply $d$ and this gives us exactly $dZ_\ell^{p-\ell,q+\ell-1}=F^pK^n\cap \image (d)$. Thus, we have
+        Then, since $\ell \geq n=p+q \implies p-\ell \leq -q \leq 0$, so $Z_\ell^{p-\ell,q+\ell-1} = \left\{x\in F^{p-\ell}K^{n-1} =K^{n-1}\mid dx\in F^p K^{n}\right\}$. Now, we apply $d$ and this gives us exactly $dZ_\ell^{p-\ell,q+\ell-1}=F^pK^n\cap \im (d)$. Thus, we have
         \begin{align*}
         E_{\ell+1}^{p,q} &:= Z_{\ell+1}^{p,q} /B_{\ell+1}^{p,q} \\
         &= Z_{\ell+1}^{p,q} /\left(Z_{\ell}^{p+1,q-1} + dZ_{\ell}^{p-\ell,q+\ell-1}\right) \\
-        &= \ker \left(d:F^pK^n\to F^pK^{n+1}\right) / \left(\ker \left(d:F^{p+1}K^n\to F^{p+1}K^{n+1}\right) +F^pK^n\cap \image (d)\right) \\
-        &= \image \left(H^n\left(F^pK^\bullet\right)\to H^n\left(K^\bullet\right)\right)/\image \left(H^n\left(F^{p+1}K^\bullet\right)\to H^n\left(K^\bullet\right)\right) \\
+        &= \ker \left(d:F^pK^n\to F^pK^{n+1}\right) / \left(\ker \left(d:F^{p+1}K^n\to F^{p+1}K^{n+1}\right) +F^pK^n\cap \im (d)\right) \\
+        &= \im \left(H^n\left(F^pK^\bullet\right)\to H^n\left(K^\bullet\right)\right)/\im \left(H^n\left(F^{p+1}K^\bullet\right)\to H^n\left(K^\bullet\right)\right) \\
         &= F^pH^n\left(K^\bullet\right) / F^{p+1}H^n\left(K^\bullet\right) \\
         &= \mathrm{Gr}_p^FH^{p+q}\left(K^\bullet\right)
         \end{align*}
@@ -268,8 +268,8 @@ $$
 
 \noindent We are now ready to assemble the next page, the $E_1$ page. Recall that the $E_1$ page is determined by the cohomology of the $E_0$ page along the $d_0$ arrows. Therefore, we have:
 \begin{align*}
-E_1^{p,q} &= \ker \left(d_0:E_0^{p,q} \to E_0^{p,q+1}\right) / \image \left(d_0: E_0^{p,q-1}\to E_0^{p,q}\right) \\
-&= \ker\left(\bar\partial: \mathcal{A}^{p,q}(X)\to \mathcal{A}^{p,q+1}(X) \right) / \image \left(\bar\partial: \mathcal{A}^{p,q-1}(X)\to \mathcal{A}^{p,q}(X) \right)
+E_1^{p,q} &= \ker \left(d_0:E_0^{p,q} \to E_0^{p,q+1}\right) / \im \left(d_0: E_0^{p,q-1}\to E_0^{p,q}\right) \\
+&= \ker\left(\bar\partial: \mathcal{A}^{p,q}(X)\to \mathcal{A}^{p,q+1}(X) \right) / \im \left(\bar\partial: \mathcal{A}^{p,q-1}(X)\to \mathcal{A}^{p,q}(X) \right)
 \end{align*}
 
 \noindent But referring to \textbf{Definition 2.4}, this is nothing but the $(p,q)$-Dolbeault cohomology of $X$! In other words, we have:
@@ -420,7 +420,3 @@ $$
 $$
 which is impossible. Hence the Fr\"olicher spectral sequence of the Iwasawa manifold does \emph{not}
 degenerate at the $E_1$ page.
-
-\subsection{Bibliography}
-\nocite{Huybrechts2005,VoisinI2002,VoisinII2003,Frolicher1955,Lang2002}
-
