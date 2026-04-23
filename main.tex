@@ -15,7 +15,7 @@
 
 \section{About}
 
-These notes are from a MATH213BR, a second-semester graduate algebraic topology class with a free-floating curriculum taught at Harvard in spring of 2026. This particular course is modeled off of Hirzebruch's amazing 1962 text \emph{Neue topologische Methoden in der algebraischen Geometrie}. Theorem counters and page references refer to the 1995 reprinting in English \cite{Hirzebruch}.
+These notes are from a MATH213BR, a second-semester graduate algebraic topology topics class taught at Harvard in spring of 2026. This particular course is modeled off of Hirzebruch's amazing 1962 text \emph{Neue topologische Methoden in der algebraischen Geometrie}. Theorem counters and page references refer to the 1995 reprinting in English \cite{Hirzebruch}.
 
 \subsection{Overview}
 
@@ -2209,7 +2209,7 @@ In the theorem above, the trivial fiber bundle corresponds to the identity eleme
 \end{example}
 
 
-\section{Principal $G$-bundles}
+\section{Principal \texorpdfstring{$G$}{G}-bundles}
 
 Any faithful $G$-action on a fiber $F$ yields a study of fiber bundles with structure group $G$ and fiber $F$. There is a distinguished example of such an $F$, namely $G$ itself, where the action is via left translation. These are called \emph{principal fiber bundles}. Here's a precise definition.
 
@@ -4229,6 +4229,210 @@ Therefore $\pi_\ast \td(T\pi) = 1 \in H^0(X,\Q)$ and we are done.
 
 Just as the $L$-genus agrees with the index of a manifold, we will see the Todd genus agrees with a different invariant of an algebraic manifold, namely its so-called \emph{arithmetic genus}, which is defined in terms of sheaf cohomology. This is essentially the content of \emph{Hirzebruch-Riemann-Roch}.
 
+\section{The holomorphic Euler characteristic}
+
+\begin{definition}\label{def:sheaf-theoretic-Euler-char} 
+Let $X$ be any space and $F\in \Ab(X)$ any sheaf. We want to define the \emph{sheaf-theoretic Euler characteristic} $\chi(X,F)$ to be
+\begin{align*}
+    \chi(X,F) = \sum_{i=0}^\infty \dim H^i(X,F),
+\end{align*}
+We have to be super clear here though about:
+\begin{itemize}
+    \item what we mean by dimension
+    \item when this thing is actually convergent and hence well-defined.
+\end{itemize}
+\end{definition}
+
+For example if we could argue that $H^i(X,F)$ is a finitely generated abelian group for each $i$ and that $H^i(X,F)=0$ for $i\gg0$, then $\chi(X,F)$ would be well-defined. We'll be interested in the particular case where $F$ is a sheaf on a complex manifold. Our ultimate goal is to show the following big theorem:
+
+\begin{center} 
+for a compact complex manifold $X$, the integer $\chi(X,\mathcal{O}_X)$ is well-defined
+\end{center}
+
+We will call this thing the \emph{holomorphic Euler characteristic}. It used to be known as the arithmetic genus but this is a bit overloaded:
+
+\begin{warning} What we are calling the holomorphic Euler characteristic, Hirzebruch calls the \emph{arithmetic genus}. This is now overloaded notation (see for instance the discussion in \cite[0BY6]{Stacks}) --- Hartshorne for instance defines the arithmetic genus of a complex variety of dimension $d$ as $p_a(X) = (-1)^d \left( \chi(X,\mathcal{O}_X) -1 \right)$ \cite[p.~230]{Hartshorne}.
+\end{warning}
+
+Our goal is the following:
+\begin{enumerate}
+    \item define a nice collection of sheaves which have finite-dimensional $H^p(X,F)$ for all $p$ (these are called \emph{coherent $\mathcal{O}_X$-modules})
+    \item show that $\mathcal{O}_X$ is among this collection (Oka coherence)
+    \item show that $H^p(X,\mathcal{O}_X)$ vanishes for large $p$ (this uses Hodge theory)
+\end{enumerate}
+
+\subsection{Coherent $\mathcal{O}_X$-modules}
+
+\begin{definition} Let $X$ be a compact complex manifold, and let $F \to X$ be a sheaf of abelian groups. We say that $F$ is a \emph{sheaf of $\mathcal{O}_X$-modules} if, for every $U \in \Open(X)$, the abelian group $F(U)$ is a module over the ring of holomorphic functions $\mathcal{O}_X(U)$, and these module structures are compatible with restriction, in the sense that if $V \subseteq U$ and $r\in \mathcal{O}_X(U)$ and $s\in F(U)$, then $\res_V^U(rs) = \res_V^U(r)\res_V^U(s)$.
+\end{definition}
+
+\begin{remark} If $F \in \Mod_{\mathcal{O}_X}$, then $F$ is a sheaf of complex vector spaces. In particular $H^q(X,F)$ is a complex vector space for each $q$, so it has a well-defined dimension.
+\end{remark}
+
+\begin{example} If $E \to X$ is a holomorphic vector bundle, then its sheaf of holomorphic sections $\Sec_\hol(-,E)$ is an $\mathcal{O}_X$-module.
+\end{example}
+
+We identify a particularly nice subcategory of $\Mod_{\mathcal{O}_X}$ consisting of the so-called \emph{coherent} sheaves. We'll see in a second why they are so important.
+
+\begin{definition}\label{def:coherent-OX-module} Let $F\in \Mod_{\mathcal{O}_X}$. We say that $F$ is \emph{coherent} if
+\begin{enumerate}
+    \item $F$ is \emph{finitely type}: meaning for every $x\in X$ there exists some open neighborhood $U \ni x$ and a surjection
+    \begin{align*}
+        \mathcal{O}_{X|U}^{\oplus N} \tto F_{|U},
+    \end{align*}
+    \item for every $U \subseteq X$, and for every morphism
+    \begin{align*}
+        \phi \colon \mathcal{O}_{X|U}^{\oplus n} \to \mathcal{F}_{|U},
+    \end{align*}
+    the kernel $\ker(\phi)$ is finite type on $U$.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Cartan-Serre finiteness] Let $X$ be a compact complex manifold and $F$ a coherent sheaf of $\mathcal{O}_X$-modules. Then $H^q(X,F)$ is a finite-dimensional complex vector space for all $q\ge0$.
+\end{theorem}
+\begin{proof} The proof is difficult -- see \cite[VI.4]{grauertTheorySteinSpaces2004} for a writeup of it.
+\end{proof}
+
+\begin{theorem}[Oka coherence] Let $X$ be a complex manifold. Then $\mathcal{O}_X$ is a coherent $\mathcal{O}_X$-module.
+\end{theorem}
+\begin{proof}[Sketch] Since we have local holomorphic charts, we can reduce to the case of $\mathcal{O}_{\C^n}$. In this setting, it is clear that $\mathcal{O}_{\C^n}$ is finite type as an $\mathcal{O}_{\C^n}$-module (since it is generated everywhere locally by $1$), the hard part is arguing that any $n \times 1$ matrix locally has finite kernel.
+
+Given some neighborhood $U$ of a point (WLOG the origin) $0 \in \C^n$, and some map
+\begin{align*}
+    \phi \colon \mathcal{O}_{\C^n|U}^{\oplus n} \to \mathcal{O}_{\C^n|U},
+\end{align*}
+we have that $\ker(\phi)$ is a submodule of $\mathcal{O}_{\C^n|U}^{\oplus n}$, which is finitely generated as an $\mathcal{O}_{\C^n|U}$-module. So we'd like to conclude by using the fact that submodules of finitely generated modules are finitely generated, but we recall this fact only holds over \emph{Noetherian} rings. Thus in order to prove the theorem, it would suffice to argue that $\mathcal{O}_{\C^n,0}$ is Noetherian. We do this inductively on $n = \dim \C^n$ by using the Weierstrass preparation theorem (in fact this is one of the key applications of Weierstrass preparation).
+\end{proof}
+
+\begin{example} For any holomorphic vector bundle $E$ of finite rank, its sheaf of holomorphic sections is a coherent $\mathcal{O}_X$-module.
+\end{example}
+
+So in summary $\dim_\mathbb{C} H^p(X,\mathcal{O}_X) < \infty$ for every $p\ge 0$. If we can show these vanish for large $p$ we are in business in terms of defining a holomorphic Euler characteristic. To do this we need a little Hodge theory.
+
+\subsection{The Dolbeault resolution}
+
+We want to show that, for a compact complex manifold $X$, we have that $H^p(X,\mathcal{O}_X) = 0$ for $p\gg0$. The strategy is to produce an acyclic resolution of the sheaf $\mathcal{O}_X$ which has only finitely many nonzero terms. Such a resolution comes from the \emph{Dolbeault sheaves}.
+
+Let's consider the Poincar\'e lemma -- we resolved $\underline{\R}$ in terms of smooth differential forms. Maybe we can do a similar thing here, resolving the sheaf of holomorphic functions on $X$ by some kind of differential forms.
+
+The first subtlety we bump into is the following:
+\begin{itemize}
+    \item for a smooth manifold $X$, its tangent bundle $TX$ admits a smooth structure
+    \item for a complex manifold $X$, its tangent bundle $TX$ does \emph{not} admit a natural holomorphic structure!
+\end{itemize}
+
+That is, if $X$ is complex of dimension $d$, the transition maps to $\GL_d(\C)$ are smooth, but cannot be assumed to be holomorphic. Unlike the passage from continuous to smooth where we can ``smooth out'' transition functions, there is no natural way to deform these coherently to make them holomorphic. Unless $X$ is very nice (e.g. a Stein manifold) we shouldn't expect to be able to endow smooth complex vector bundles on $X$ with a holomorphic structure.
+
+There is, however, a natural way to build a holomorphic vector bundle out of the tangent bundle.
+
+\begin{definition} Let $X$ be a complex manifold. The almost complex structure $j \colon TX \to TX$ satisfies $j^2 = -\id$ but doesn't split. However if we complexify $TX$, this does split. We define
+\begin{align*}
+    TM \otimes_\R\C = T^{1,0}M \oplus T^{0,1}M
+\end{align*}
+to be the splitting corresponding to the eigenvalues $i$ and $-i$, respectively. We call $T^{1,0}M$ the \emph{holomorphic tangent bundle} and $T^{0,1}M$ the \emph{antiholomorphic tangent bundle} of $M$.
+\end{definition}
+
+\begin{remark} On $X$ we can take a chart $z_1, \ldots, z_n$, and by writing $z_j = x_j + iy_j$, we get a preferred basis $\frac{d}{dx_1}, \frac{d}{dy_1}, \ldots, \frac{d}{dx_n}, \frac{d}{dy_n}$ of $TM$ over the chart. This induces distinguished bases $\frac{d}{dz_1}, \ldots, \frac{d}{dz_n}$ of $T^{1,0}M$, and $\frac{d}{d \bar{z}_j}$ of $T^{0,1}M$ satisfying: 
+\begin{align*}
+    \frac{d}{dz_j} &= \frac{1}{2}\left(\frac{d}{dx_j} - i \frac{d}{dy_j}\right) \\
+    \frac{d}{d \bar{z}_j} &= \frac{1}{2} \left( \frac{d}{dx^j} + i \frac{d}{dy^j} \right).
+\end{align*}
+We pick things this way so that on the dual space $T^{1,0 \ast}M$ we have distinguished sections $dz^j$, and on $T^{0,1 \ast}M$ we have distinguished sections $d \bar{z}$
+\begin{align*}
+    dz^j &= dx^j + i dy^j \\
+    d \bar{z}^j &= dx^j - i dy^j.
+\end{align*}
+\end{remark}
+
+\begin{notation} Let $\Omega^{1,0}$ be the sheaf of \emph{smooth} sections of $T^{1,0 \ast} M$ and let $\Omega^{0,1}$ be the sheaf of smooth sections of $T^{0,1 \ast}M$. We can verify that $\Omega^{1,0}(U)$ can be interpreted as the space of complex-valued differential $1$-forms on $U$ consisting only of $dz^i$'s, and $\Omega^{0,1}$ is the space of complex-valued differential $1$-forms on $U$ consisting only of $d \bar{z}^i$'s.
+
+For any $p,q\ge0$ we denote by
+\begin{align*}
+    \Omega^{p,q} := \bigwedge^p \Omega^{1,0} \wedge \bigwedge^q \Omega^{0,1}.
+\end{align*}
+we refer to sections of $\Omega^{p,q}$ as \emph{$(p,q)$-forms}.
+\end{notation}
+
+\begin{note} These sheaves above can also be defined in terms of a decomposition of $\wedge^n (T^\ast M \otimes_\R \C)$ into summands over each $(p,q)$ with $p+q=0$. When $n=0$, the $0$th wedge power of a complex line bundle is just the trivial complex line bundle. From this perspective it's easy to see that $\Omega^{0,0}$ is exactly the sheaf $C^\infty(-,\C)$ of smooth complex-valued functions.
+\end{note}
+
+\begin{remark} We have that $\Omega^{0,0} = C^\infty(-,\C)$ is the sheaf of smooth complex-valued functions.
+\end{remark}
+
+So what is the differential of a $(p,q)$-form? Given some
+\begin{align*}
+    \omega = f(z_1, \ldots, z_n) dz_{i_1}\wedge \cdots \wedge dz_{i_p} \wedge d \bar{z}_{j_1} \wedge \cdots \wedge d \bar{z}_{j_q},
+\end{align*}
+it still makes sense to talk about $df$ since $f$ is smooth, so we define
+\begin{align*}
+    d\omega := (df) \wedge dz_{i_1}\wedge \cdots \wedge dz_{i_p} \wedge d \bar{z}_{j_1} \wedge \cdots \wedge d \bar{z}_{j_q}.
+\end{align*}
+There's an issue, that $df$ breaks up into stuff involving $dz_j$'s and $d \bar{z}_j$'s, so $d\omega$ will be a $(p,q+1)$-form plus a $(p+1,q)$-form. Thus we could really think about this differential as the sum of \emph{two} differentials:
+
+\begin{proposition} The differential
+\begin{align*}
+    \bigoplus_{p+q=n} \Omega^{p,q} \xto{d} \bigoplus_{p+q=n+1} \Omega^{p,q}
+\end{align*}
+breaks up naturally into the sum of two differentials
+\begin{align*}
+    \del \colon \Omega^{p,q} &\to \Omega^{p+1,q} \\
+    \overline{\del} \colon \Omega^{p,q+1} &\to \Omega^{p,q+1}.
+\end{align*}
+These are defined as you might expect -- $\del f = \sum \frac{df}{dz_i} dz_i$ and $\overline{\del} f = \sum \frac{df}{d \bar{z}_i} d \bar{z}_i$.
+\end{proposition}
+
+\begin{exercise} Show that $\del \circ \del = 0$ and $\overline{\del} \circ \overline{\del} =0$.
+\end{exercise}
+
+The core property is now the following:
+
+\begin{theorem}[Dolbeault resolution]
+If $X$ is a complex manifold of dimension $d$, we have an acyclic resolution
+\begin{align*}
+    0 \to \mathcal{O}_X \to \Omega^{0,0} \xto{\overline{\del}} \Omega^{0,1} \xto{\overline{\del}} \Omega^{0,2} \to \cdots \to \Omega^{0,d} \to 0
+\end{align*}
+\end{theorem}
+\begin{proof} Since we have seen that $\overline{\del}\overline{\del}=0$ it is clear that most of this sequence is exact. There are clearly no $(0,d+1)$-forms or higher since the dimension of $X$ is only $d$, so this resolution is finite. To see exactness at $\Omega^{0,0}$, we observe that $\Omega^{0,0}\cong C^\infty(-,\C)$, and a complex-valued function is holomorphic \emph{precisely} when $\frac{d}{d \bar{z}_i}$ of it is zero for all $i$. In other words, when $\overline{\del}$ of it vanishes.
+
+The last thing to check is that the $\Omega^{0,q}$'s are acyclic. We show instead that they are fine -- this is because $X$ is a smooth manifold and therefore admits smooth partitions of unity, so we can rescale any $(0,q)$-form by some function in our partition of unity and it preserves smoothness.
+\end{proof}
+
+\begin{corollary} 
+If $X$ is a complex manifold of dimension $d$ we have that $H^q(X, \mathcal{O}_X) = 0$ for $q > d$.
+\end{corollary}
+
+Therefore the holomorphic Euler characteristic $\chi(X,\mathcal{O}_X)$ is well-defined!
+
+
+\subsection{Properties of the holomorphic Euler characteristic}
+
+\begin{exercise}\label{exer:euler-char-sheaves-additive-on-SES} 
+If
+\begin{align*}
+    F_1 \to F_2 \to F_3
+\end{align*}
+is a short exact sequence of coherent sheaves on $X$, show that
+\begin{align*}
+    \chi(X,F_2) = \chi(X,F_1) + \chi(X,F_2).
+\end{align*}
+\end{exercise}
+
+
+
+\begin{theorem}[{\cite[20.2.1]{Hirzebruch}}]
+Let $X$ be a complex (algebraic?) manifold, and let $X^\Delta$ be the total flag space. Then
+\begin{align*}
+    \chi(X,\mathcal{O}_X) = \chi(X^\Delta, \mathcal{O}_{X^\Delta}).
+\end{align*}
+\end{theorem}
+\begin{proof} Since the Euler characteristic will be, by definition, the alternating sum of the cohomology groups, we can use that dimension is additive on short exact sequences to reduce to checking that
+\begin{align*}
+    \dim_\C H^0(X,\Omega^{0,p}) = \dim_\C H^0(X^\Delta, \Omega^{0,p})
+\end{align*}
+for all $p\ge0$. Let $\pi \colon X^\Delta \to X$ denote the pullback, then $\pi^\ast TX$ decomposes into complex analytic line bundles $\xi_1, \ldots, \xi_n$. Since these bundles are complex analytic, we have that $c_1(\xi_j)$ is represented by a $(1,1)$-form. Since $\pi$ is complex analytic, we have that $\pi^\ast$ preserves $(p,q)$ forms. It is a theorem of Borel that $H^\ast(X^\Delta,\C)$ is generated by the injective image of $\pi^\ast H^\ast(X,\C)$, together with all the $c_1(\xi_j)$'s. In particular all the $(0,p)$-forms in $H^\ast(X^\Delta,\C)$ are pulled back fron $H^\ast(X,\C)$. Hence $\dim_\C H^0(X,\Omega^{0,p}) = \dim_\C H^0(X^\Delta, \Omega^{0,p})$.
+\end{proof}
+
+
 
 
 
@@ -4438,8 +4642,6 @@ Every CW complex is paracompact.
 \begin{proof}[Sketch] There's a nice outline on the nLab -- we can induct on the skeleton, leveraging that disks and spheres are paracompact, and that paracompact Hausdorff spaces are closed under coproducts and pushouts along closed embeddings.
 \end{proof}
 
-
-\newpage
 \subsection{Properties of open covers and neighborhoods}
 
 We say a \emph{property} $\mathbf{P}$ is any boolean-valued assignment on objects of a category.
